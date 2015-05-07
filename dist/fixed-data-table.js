@@ -13,41 +13,41 @@ var FixedDataTable =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -170,25 +170,25 @@ var FixedDataTable =
 
 	/* jslint bitwise: true */
 
-	var FixedDataTableHelper = __webpack_require__(18);
-	var Locale = __webpack_require__(19);
-	var React = __webpack_require__(20);
-	var ReactComponentWithPureRenderMixin = __webpack_require__(21);
-	var ReactWheelHandler = __webpack_require__(22);
-	var Scrollbar = __webpack_require__(23);
-	var FixedDataTableBufferedRows = __webpack_require__(24);
-	var FixedDataTableColumnResizeHandle = __webpack_require__(25);
-	var FixedDataTableRow = __webpack_require__(26);
-	var FixedDataTableScrollHelper = __webpack_require__(27);
-	var FixedDataTableWidthHelper = __webpack_require__(28);
+	var FixedDataTableHelper = __webpack_require__(19);
+	var Locale = __webpack_require__(20);
+	var React = __webpack_require__(21);
+	var ReactComponentWithPureRenderMixin = __webpack_require__(22);
+	var ReactWheelHandler = __webpack_require__(23);
+	var Scrollbar = __webpack_require__(24);
+	var FixedDataTableBufferedRows = __webpack_require__(25);
+	var FixedDataTableColumnResizeHandle = __webpack_require__(26);
+	var FixedDataTableRow = __webpack_require__(27);
+	var FixedDataTableScrollHelper = __webpack_require__(28);
+	var FixedDataTableWidthHelper = __webpack_require__(29);
 
-	var cloneWithProps = __webpack_require__(29);
-	var cx = __webpack_require__(30);
-	var debounceCore = __webpack_require__(31);
-	var emptyFunction = __webpack_require__(32);
-	var invariant = __webpack_require__(33);
-	var shallowEqual = __webpack_require__(34);
-	var translateDOMPositionXY = __webpack_require__(35);
+	var cloneWithProps = __webpack_require__(30);
+	var cx = __webpack_require__(31);
+	var debounceCore = __webpack_require__(32);
+	var emptyFunction = __webpack_require__(33);
+	var invariant = __webpack_require__(34);
+	var shallowEqual = __webpack_require__(35);
+	var translateDOMPositionXY = __webpack_require__(36);
 
 	var PropTypes = React.PropTypes;
 	var ReactChildren = React.Children;
@@ -1200,7 +1200,7 @@ var FixedDataTable =
 	 * @typechecks
 	 */
 
-	var React = __webpack_require__(20);
+	var React = __webpack_require__(21);
 
 	var PropTypes = React.PropTypes;
 
@@ -1357,7 +1357,7 @@ var FixedDataTable =
 	 * @typechecks
 	 */
 
-	var React = __webpack_require__(20);
+	var React = __webpack_require__(21);
 
 	var PropTypes = React.PropTypes;
 
@@ -1421,7 +1421,8 @@ var FixedDataTable =
 
 
 /***/ },
-/* 18 */
+/* 18 */,
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1438,12 +1439,12 @@ var FixedDataTable =
 
 	"use strict";
 
-	var Locale = __webpack_require__(19);
-	var React = __webpack_require__(20);
+	var Locale = __webpack_require__(20);
+	var React = __webpack_require__(21);
 	var FixedDataTableColumnGroup = __webpack_require__(17);
 	var FixedDataTableColumn = __webpack_require__(16);
 
-	var cloneWithProps = __webpack_require__(29);
+	var cloneWithProps = __webpack_require__(30);
 
 	var DIR_SIGN = (Locale.isRTL() ? -1 : +1);
 	// A cell up to 5px outside of the visible area will still be considered visible
@@ -1531,7 +1532,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1557,7 +1558,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1575,7 +1576,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1593,7 +1594,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1671,7 +1672,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1688,14 +1689,14 @@ var FixedDataTable =
 
 	var DOMMouseMoveTracker = __webpack_require__(38);
 	var Keys = __webpack_require__(39);
-	var React = __webpack_require__(20);
-	var ReactComponentWithPureRenderMixin = __webpack_require__(21);
-	var ReactWheelHandler = __webpack_require__(22);
+	var React = __webpack_require__(21);
+	var ReactComponentWithPureRenderMixin = __webpack_require__(22);
+	var ReactWheelHandler = __webpack_require__(23);
 
 	var cssVar = __webpack_require__(40);
-	var cx = __webpack_require__(30);
-	var emptyFunction = __webpack_require__(32);
-	var translateDOMPositionXY = __webpack_require__(35);
+	var cx = __webpack_require__(31);
+	var emptyFunction = __webpack_require__(33);
+	var translateDOMPositionXY = __webpack_require__(36);
 
 	var PropTypes = React.PropTypes;
 
@@ -2156,7 +2157,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2171,12 +2172,12 @@ var FixedDataTable =
 	 * @typechecks
 	 */
 
-	var React = __webpack_require__(20);
+	var React = __webpack_require__(21);
 	var FixedDataTableRowBuffer = __webpack_require__(41);
-	var FixedDataTableRow = __webpack_require__(26);
+	var FixedDataTableRow = __webpack_require__(27);
 
-	var cx = __webpack_require__(30);
-	var emptyFunction = __webpack_require__(32);
+	var cx = __webpack_require__(31);
+	var emptyFunction = __webpack_require__(33);
 	var joinClasses = __webpack_require__(42);
 
 	var PropTypes = React.PropTypes;
@@ -2323,7 +2324,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2343,12 +2344,12 @@ var FixedDataTable =
 	 */
 
 	var DOMMouseMoveTracker = __webpack_require__(38);
-	var Locale = __webpack_require__(19);
-	var React = __webpack_require__(20);
-	var ReactComponentWithPureRenderMixin = __webpack_require__(21);
+	var Locale = __webpack_require__(20);
+	var React = __webpack_require__(21);
+	var ReactComponentWithPureRenderMixin = __webpack_require__(22);
 
 	var clamp = __webpack_require__(43);
-	var cx = __webpack_require__(30);
+	var cx = __webpack_require__(31);
 
 	var PropTypes = React.PropTypes;
 
@@ -2495,7 +2496,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2512,14 +2513,14 @@ var FixedDataTable =
 
 	"use strict";
 
-	var FixedDataTableHelper = __webpack_require__(18);
-	var React = __webpack_require__(20);
-	var ReactComponentWithPureRenderMixin = __webpack_require__(21);
-	var FixedDataTableCellGroup = __webpack_require__(44);
+	var FixedDataTableHelper = __webpack_require__(19);
+	var React = __webpack_require__(21);
+	var ReactComponentWithPureRenderMixin = __webpack_require__(22);
+	var FixedDataTableCellGroup = __webpack_require__(45);
 
-	var cx = __webpack_require__(30);
+	var cx = __webpack_require__(31);
 	var joinClasses = __webpack_require__(42);
-	var translateDOMPositionXY = __webpack_require__(35);
+	var translateDOMPositionXY = __webpack_require__(36);
 
 	var DIR_SIGN = FixedDataTableHelper.DIR_SIGN;
 	var PropTypes = React.PropTypes;
@@ -2742,7 +2743,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2758,7 +2759,7 @@ var FixedDataTable =
 	 */
 	'use strict';
 
-	var PrefixIntervalTree = __webpack_require__(45);
+	var PrefixIntervalTree = __webpack_require__(44);
 	var clamp = __webpack_require__(43);
 
 	var BUFFER_ROWS = 5;
@@ -3012,7 +3013,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3028,9 +3029,9 @@ var FixedDataTable =
 	 */
 	'use strict';
 
-	var React = __webpack_require__(20);
+	var React = __webpack_require__(21);
 
-	var cloneWithProps = __webpack_require__(29);
+	var cloneWithProps = __webpack_require__(30);
 
 	function getTotalWidth(/*array*/ columns) /*number*/ {
 	  var totalWidth = 0;
@@ -3170,7 +3171,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3188,7 +3189,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3246,7 +3247,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3311,7 +3312,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3349,7 +3350,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3408,7 +3409,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3456,7 +3457,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -3507,11 +3508,10 @@ var FixedDataTable =
 	})();
 
 	module.exports = translateDOMPositionXY;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 36 */,
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -3769,9 +3769,12 @@ var FixedDataTable =
 	var IntegerBufferSet = __webpack_require__(52);
 
 	var clamp = __webpack_require__(43);
-	var invariant = __webpack_require__(33);
-	var MIN_BUFFER_ROWS = 5;
-	var MAX_BUFFER_ROWS = 15;
+	var invariant = __webpack_require__(34);
+
+	// Set row buffer to match Goodguide's requirements.
+	// TODO: Make this setable via Table props and pull request back to main project.
+	var MIN_BUFFER_ROWS = 50;
+	var MAX_BUFFER_ROWS = 50;
 
 	// FixedDataTableRowBuffer is a helper class that executes row buffering
 	// logic for FixedDataTable. It figures out which rows should be rendered
@@ -3998,6 +4001,169 @@ var FixedDataTable =
 /* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(global) {/**
+	 * Copyright (c) 2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule PrefixIntervalTree
+	 * @typechecks
+	 */
+
+	"use strict";
+
+	/**
+	 * An interval tree that allows to set a number at index and given the value
+	 * find the largest index for which prefix sum is greater than or equal to value
+	 * (lower bound) or greater than value (upper bound)
+	 * Complexity:
+	 *   construct: O(n)
+	 *   query: O(log(n))
+	 *   memory: O(log(n)),
+	 * where n is leafCount from the constructor
+	 */
+
+	  function PrefixIntervalTree(leafCount, /*?number*/ initialLeafValue) {
+	    var internalLeafCount = this.getInternalLeafCount(leafCount);
+	    this.$PrefixIntervalTree_leafCount = leafCount;
+	    this.$PrefixIntervalTree_internalLeafCount = internalLeafCount;
+	    var nodeCount = 2 * internalLeafCount;
+	    var Int32Array = global.Int32Array || Array;
+	    this.$PrefixIntervalTree_value = new Int32Array(nodeCount);
+	    this.$PrefixIntervalTree_initTables(initialLeafValue || 0);
+
+	    this.get = this.get.bind(this);
+	    this.set = this.set.bind(this);
+	    this.lowerBound = this.lowerBound.bind(this);
+	    this.upperBound = this.upperBound.bind(this);
+	  }
+
+	  PrefixIntervalTree.prototype.getInternalLeafCount=function(leafCount)  {
+	    var internalLeafCount = 1;
+	    while (internalLeafCount < leafCount) {
+	      internalLeafCount *= 2;
+	    }
+	    return internalLeafCount;
+	  };
+
+	  PrefixIntervalTree.prototype.$PrefixIntervalTree_initTables=function(initialLeafValue) {
+	    var firstLeaf = this.$PrefixIntervalTree_internalLeafCount;
+	    var lastLeaf = this.$PrefixIntervalTree_internalLeafCount + this.$PrefixIntervalTree_leafCount - 1;
+	    var i;
+	    for (i = firstLeaf; i <= lastLeaf; ++i) {
+	      this.$PrefixIntervalTree_value[i] = initialLeafValue;
+	    }
+	    var lastInternalNode = this.$PrefixIntervalTree_internalLeafCount - 1;
+	    for (i = lastInternalNode; i > 0; --i) {
+	      this.$PrefixIntervalTree_value[i] =  this.$PrefixIntervalTree_value[2 * i] + this.$PrefixIntervalTree_value[2 * i + 1];
+	    }
+	  };
+
+	  PrefixIntervalTree.prototype.set=function(position, /*number*/ value) {
+	    var nodeIndex = position + this.$PrefixIntervalTree_internalLeafCount;
+	    this.$PrefixIntervalTree_value[nodeIndex] = value;
+	    nodeIndex = Math.floor(nodeIndex / 2);
+	    while (nodeIndex !== 0) {
+	      this.$PrefixIntervalTree_value[nodeIndex] =
+	        this.$PrefixIntervalTree_value[2 * nodeIndex] + this.$PrefixIntervalTree_value[2 * nodeIndex + 1];
+	      nodeIndex = Math.floor(nodeIndex / 2);
+	    }
+	  };
+
+	  /**
+	   * Returns an object {index, value} for given position (including value at
+	   * specified position), or the same for last position if provided position
+	   * is out of range
+	   */
+	  PrefixIntervalTree.prototype.get=function(position)  {
+	    position = Math.min(position, this.$PrefixIntervalTree_leafCount);
+	    var nodeIndex = position + this.$PrefixIntervalTree_internalLeafCount;
+	    var result = this.$PrefixIntervalTree_value[nodeIndex];
+	    while (nodeIndex > 1) {
+	      if (nodeIndex % 2 === 1) {
+	        result = this.$PrefixIntervalTree_value[nodeIndex - 1] + result;
+	      }
+	      nodeIndex = Math.floor(nodeIndex / 2);
+	    }
+	    return {index: position, value: result};
+	  };
+
+	  /**
+	   * Returns an object {index, value} where index is index of leaf that was
+	   * found by upper bound algorithm. Upper bound finds first element for which
+	   * value is greater than argument
+	   */
+	  PrefixIntervalTree.prototype.upperBound=function(value)  {
+	    var result = this.$PrefixIntervalTree_upperBoundImpl(1, 0, this.$PrefixIntervalTree_internalLeafCount - 1, value);
+	    if (result.index > this.$PrefixIntervalTree_leafCount - 1) {
+	      result.index = this.$PrefixIntervalTree_leafCount - 1;
+	    }
+	    return result;
+	  };
+
+	  /**
+	   * Returns result in the same format as upperBound, but finds first element
+	   * for which value is greater than or equal to argument
+	   */
+	  PrefixIntervalTree.prototype.lowerBound=function(value)  {
+	    var result = this.upperBound(value);
+	    if (result.value > value && result.index > 0) {
+	      var previousValue =
+	        result.value - this.$PrefixIntervalTree_value[this.$PrefixIntervalTree_internalLeafCount + result.index];
+	      if (previousValue === value) {
+	        result.value = previousValue;
+	        result.index--;
+	      }
+	    }
+	    return result;
+	  };
+
+	  PrefixIntervalTree.prototype.$PrefixIntervalTree_upperBoundImpl=function(
+	nodeIndex,
+	    /*number*/ nodeIntervalBegin,
+	    /*number*/ nodeIntervalEnd,
+	    /*number*/ value)
+	    {
+	    if (nodeIntervalBegin === nodeIntervalEnd) {
+	      return {
+	        index: nodeIndex - this.$PrefixIntervalTree_internalLeafCount,
+	        value: this.$PrefixIntervalTree_value[nodeIndex],
+	      };
+	    }
+
+	    var nodeIntervalMidpoint =
+	      Math.floor((nodeIntervalBegin + nodeIntervalEnd + 1) / 2);
+	    if (value < this.$PrefixIntervalTree_value[nodeIndex * 2]) {
+	      return this.$PrefixIntervalTree_upperBoundImpl(
+	        2 * nodeIndex,
+	        nodeIntervalBegin,
+	        nodeIntervalMidpoint - 1,
+	        value
+	      );
+	    } else {
+	      var result = this.$PrefixIntervalTree_upperBoundImpl(
+	        2 * nodeIndex + 1,
+	        nodeIntervalMidpoint,
+	        nodeIntervalEnd,
+	        value - this.$PrefixIntervalTree_value[2 * nodeIndex]
+	      );
+	      result.value += this.$PrefixIntervalTree_value[2 * nodeIndex];
+	      return result;
+	    }
+	  };
+
+
+	module.exports = PrefixIntervalTree;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * Copyright (c) 2015, Facebook, Inc.
 	 * All rights reserved.
@@ -4012,15 +4178,15 @@ var FixedDataTable =
 
 	"use strict";
 
-	var FixedDataTableHelper = __webpack_require__(18);
+	var FixedDataTableHelper = __webpack_require__(19);
 	var ImmutableObject = __webpack_require__(53);
-	var React = __webpack_require__(20);
-	var ReactComponentWithPureRenderMixin = __webpack_require__(21);
+	var React = __webpack_require__(21);
+	var ReactComponentWithPureRenderMixin = __webpack_require__(22);
 	var FixedDataTableCell = __webpack_require__(54);
 
-	var cx = __webpack_require__(30);
+	var cx = __webpack_require__(31);
 	var renderToString = FixedDataTableHelper.renderToString;
-	var translateDOMPositionXY = __webpack_require__(35);
+	var translateDOMPositionXY = __webpack_require__(36);
 
 	var PropTypes = React.PropTypes;
 
@@ -4207,169 +4373,6 @@ var FixedDataTable =
 
 	module.exports = FixedDataTableCellGroup;
 
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * Copyright (c) 2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule PrefixIntervalTree
-	 * @typechecks
-	 */
-
-	"use strict";
-
-	/**
-	 * An interval tree that allows to set a number at index and given the value
-	 * find the largest index for which prefix sum is greater than or equal to value
-	 * (lower bound) or greater than value (upper bound)
-	 * Complexity:
-	 *   construct: O(n)
-	 *   query: O(log(n))
-	 *   memory: O(log(n)),
-	 * where n is leafCount from the constructor
-	 */
-
-	  function PrefixIntervalTree(leafCount, /*?number*/ initialLeafValue) {
-	    var internalLeafCount = this.getInternalLeafCount(leafCount);
-	    this.$PrefixIntervalTree_leafCount = leafCount;
-	    this.$PrefixIntervalTree_internalLeafCount = internalLeafCount;
-	    var nodeCount = 2 * internalLeafCount;
-	    var Int32Array = global.Int32Array || Array;
-	    this.$PrefixIntervalTree_value = new Int32Array(nodeCount);
-	    this.$PrefixIntervalTree_initTables(initialLeafValue || 0);
-
-	    this.get = this.get.bind(this);
-	    this.set = this.set.bind(this);
-	    this.lowerBound = this.lowerBound.bind(this);
-	    this.upperBound = this.upperBound.bind(this);
-	  }
-
-	  PrefixIntervalTree.prototype.getInternalLeafCount=function(leafCount)  {
-	    var internalLeafCount = 1;
-	    while (internalLeafCount < leafCount) {
-	      internalLeafCount *= 2;
-	    }
-	    return internalLeafCount;
-	  };
-
-	  PrefixIntervalTree.prototype.$PrefixIntervalTree_initTables=function(initialLeafValue) {
-	    var firstLeaf = this.$PrefixIntervalTree_internalLeafCount;
-	    var lastLeaf = this.$PrefixIntervalTree_internalLeafCount + this.$PrefixIntervalTree_leafCount - 1;
-	    var i;
-	    for (i = firstLeaf; i <= lastLeaf; ++i) {
-	      this.$PrefixIntervalTree_value[i] = initialLeafValue;
-	    }
-	    var lastInternalNode = this.$PrefixIntervalTree_internalLeafCount - 1;
-	    for (i = lastInternalNode; i > 0; --i) {
-	      this.$PrefixIntervalTree_value[i] =  this.$PrefixIntervalTree_value[2 * i] + this.$PrefixIntervalTree_value[2 * i + 1];
-	    }
-	  };
-
-	  PrefixIntervalTree.prototype.set=function(position, /*number*/ value) {
-	    var nodeIndex = position + this.$PrefixIntervalTree_internalLeafCount;
-	    this.$PrefixIntervalTree_value[nodeIndex] = value;
-	    nodeIndex = Math.floor(nodeIndex / 2);
-	    while (nodeIndex !== 0) {
-	      this.$PrefixIntervalTree_value[nodeIndex] =
-	        this.$PrefixIntervalTree_value[2 * nodeIndex] + this.$PrefixIntervalTree_value[2 * nodeIndex + 1];
-	      nodeIndex = Math.floor(nodeIndex / 2);
-	    }
-	  };
-
-	  /**
-	   * Returns an object {index, value} for given position (including value at
-	   * specified position), or the same for last position if provided position
-	   * is out of range
-	   */
-	  PrefixIntervalTree.prototype.get=function(position)  {
-	    position = Math.min(position, this.$PrefixIntervalTree_leafCount);
-	    var nodeIndex = position + this.$PrefixIntervalTree_internalLeafCount;
-	    var result = this.$PrefixIntervalTree_value[nodeIndex];
-	    while (nodeIndex > 1) {
-	      if (nodeIndex % 2 === 1) {
-	        result = this.$PrefixIntervalTree_value[nodeIndex - 1] + result;
-	      }
-	      nodeIndex = Math.floor(nodeIndex / 2);
-	    }
-	    return {index: position, value: result};
-	  };
-
-	  /**
-	   * Returns an object {index, value} where index is index of leaf that was
-	   * found by upper bound algorithm. Upper bound finds first element for which
-	   * value is greater than argument
-	   */
-	  PrefixIntervalTree.prototype.upperBound=function(value)  {
-	    var result = this.$PrefixIntervalTree_upperBoundImpl(1, 0, this.$PrefixIntervalTree_internalLeafCount - 1, value);
-	    if (result.index > this.$PrefixIntervalTree_leafCount - 1) {
-	      result.index = this.$PrefixIntervalTree_leafCount - 1;
-	    }
-	    return result;
-	  };
-
-	  /**
-	   * Returns result in the same format as upperBound, but finds first element
-	   * for which value is greater than or equal to argument
-	   */
-	  PrefixIntervalTree.prototype.lowerBound=function(value)  {
-	    var result = this.upperBound(value);
-	    if (result.value > value && result.index > 0) {
-	      var previousValue =
-	        result.value - this.$PrefixIntervalTree_value[this.$PrefixIntervalTree_internalLeafCount + result.index];
-	      if (previousValue === value) {
-	        result.value = previousValue;
-	        result.index--;
-	      }
-	    }
-	    return result;
-	  };
-
-	  PrefixIntervalTree.prototype.$PrefixIntervalTree_upperBoundImpl=function(
-	nodeIndex,
-	    /*number*/ nodeIntervalBegin,
-	    /*number*/ nodeIntervalEnd,
-	    /*number*/ value)
-	    {
-	    if (nodeIntervalBegin === nodeIntervalEnd) {
-	      return {
-	        index: nodeIndex - this.$PrefixIntervalTree_internalLeafCount,
-	        value: this.$PrefixIntervalTree_value[nodeIndex],
-	      };
-	    }
-
-	    var nodeIntervalMidpoint =
-	      Math.floor((nodeIntervalBegin + nodeIntervalEnd + 1) / 2);
-	    if (value < this.$PrefixIntervalTree_value[nodeIndex * 2]) {
-	      return this.$PrefixIntervalTree_upperBoundImpl(
-	        2 * nodeIndex,
-	        nodeIntervalBegin,
-	        nodeIntervalMidpoint - 1,
-	        value
-	      );
-	    } else {
-	      var result = this.$PrefixIntervalTree_upperBoundImpl(
-	        2 * nodeIndex + 1,
-	        nodeIntervalMidpoint,
-	        nodeIntervalEnd,
-	        value - this.$PrefixIntervalTree_value[2 * nodeIndex]
-	      );
-	      result.value += this.$PrefixIntervalTree_value[2 * nodeIndex];
-	      return result;
-	    }
-	  };
-
-
-	module.exports = PrefixIntervalTree;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 46 */
@@ -4573,7 +4576,7 @@ var FixedDataTable =
 	 * @providesModule requestAnimationFramePolyfill
 	 */
 
-	var emptyFunction = __webpack_require__(32);
+	var emptyFunction = __webpack_require__(33);
 	var nativeRequestAnimationFrame = __webpack_require__(57);
 
 	var lastTime = 0;
@@ -4597,7 +4600,7 @@ var FixedDataTable =
 	requestAnimationFrame(emptyFunction);
 
 	module.exports = requestAnimationFrame;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
@@ -4670,7 +4673,7 @@ var FixedDataTable =
 	var ExecutionEnvironment = __webpack_require__(58);
 
 	var camelize = __webpack_require__(59);
-	var invariant = __webpack_require__(33);
+	var invariant = __webpack_require__(34);
 
 	var memoized = {};
 	var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
@@ -4729,7 +4732,7 @@ var FixedDataTable =
 	 * @typechecks
 	 */
 
-	var emptyFunction = __webpack_require__(32);
+	var emptyFunction = __webpack_require__(33);
 
 	/**
 	 * Upstream version of event listener. Does not take into account specific
@@ -4826,7 +4829,7 @@ var FixedDataTable =
 	  global.clearTimeout;
 
 	module.exports = cancelAnimationFrame;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
@@ -4849,7 +4852,7 @@ var FixedDataTable =
 
 	var Heap = __webpack_require__(62);
 
-	var invariant = __webpack_require__(33);
+	var invariant = __webpack_require__(34);
 
 	// Data structure that allows to store values and assign positions to them
 	// in a way to minimize changing positions of stored values when new ones are
@@ -5037,7 +5040,7 @@ var FixedDataTable =
 
 	var ImmutableValue = __webpack_require__(63);
 
-	var invariant = __webpack_require__(33);
+	var invariant = __webpack_require__(34);
 	var keyOf = __webpack_require__(64);
 	var mergeHelpers = __webpack_require__(65);
 
@@ -5220,10 +5223,10 @@ var FixedDataTable =
 	 */
 
 	var ImmutableObject = __webpack_require__(53);
-	var React = __webpack_require__(20);
+	var React = __webpack_require__(21);
 
-	var cloneWithProps = __webpack_require__(29);
-	var cx = __webpack_require__(30);
+	var cloneWithProps = __webpack_require__(30);
+	var cx = __webpack_require__(31);
 	var joinClasses = __webpack_require__(42);
 
 	var PropTypes = React.PropTypes;
@@ -5810,7 +5813,7 @@ var FixedDataTable =
 	  global.msRequestAnimationFrame;
 
 	module.exports = nativeRequestAnimationFrame;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
@@ -5915,7 +5918,7 @@ var FixedDataTable =
 
 	"use strict";
 
-	var shallowEqual = __webpack_require__(72);
+	var shallowEqual = __webpack_require__(68);
 
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -5969,11 +5972,11 @@ var FixedDataTable =
 
 	"use strict";
 
-	var ReactElement = __webpack_require__(68);
-	var ReactPropTransferer = __webpack_require__(69);
+	var ReactElement = __webpack_require__(69);
+	var ReactPropTransferer = __webpack_require__(70);
 
-	var keyOf = __webpack_require__(70);
-	var warning = __webpack_require__(71);
+	var keyOf = __webpack_require__(71);
+	var warning = __webpack_require__(72);
 
 	var CHILDREN_PROP = keyOf({children: null});
 
@@ -6010,7 +6013,7 @@ var FixedDataTable =
 	}
 
 	module.exports = cloneWithProps;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
 /***/ },
@@ -6191,7 +6194,7 @@ var FixedDataTable =
 
 	"use strict";
 
-	var invariant = __webpack_require__(33);
+	var invariant = __webpack_require__(34);
 	var isNode = __webpack_require__(66);
 	var keyOf = __webpack_require__(64);
 
@@ -6365,7 +6368,7 @@ var FixedDataTable =
 
 	"use strict";
 
-	var invariant = __webpack_require__(33);
+	var invariant = __webpack_require__(34);
 	var keyMirror = __webpack_require__(67);
 
 	/**
@@ -6542,7 +6545,7 @@ var FixedDataTable =
 
 	'use strict';
 
-	var invariant = __webpack_require__(33);
+	var invariant = __webpack_require__(34);
 
 	/**
 	 * Constructs an enumeration with keys equal to their value.
@@ -6585,6 +6588,54 @@ var FixedDataTable =
 /* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+
+	"use strict";
+
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+
+	module.exports = shallowEqual;
+
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2014, Facebook, Inc.
 	 * All rights reserved.
@@ -6601,7 +6652,7 @@ var FixedDataTable =
 	var ReactContext = __webpack_require__(74);
 	var ReactCurrentOwner = __webpack_require__(75);
 
-	var warning = __webpack_require__(71);
+	var warning = __webpack_require__(72);
 
 	var RESERVED_PROPS = {
 	  key: true,
@@ -6827,11 +6878,11 @@ var FixedDataTable =
 	};
 
 	module.exports = ReactElement;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -6848,10 +6899,10 @@ var FixedDataTable =
 	"use strict";
 
 	var assign = __webpack_require__(76);
-	var emptyFunction = __webpack_require__(78);
-	var invariant = __webpack_require__(79);
-	var joinClasses = __webpack_require__(77);
-	var warning = __webpack_require__(71);
+	var emptyFunction = __webpack_require__(77);
+	var invariant = __webpack_require__(78);
+	var joinClasses = __webpack_require__(79);
+	var warning = __webpack_require__(72);
 
 	var didWarn = false;
 
@@ -6997,11 +7048,11 @@ var FixedDataTable =
 	};
 
 	module.exports = ReactPropTransferer;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -7041,7 +7092,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -7057,7 +7108,7 @@ var FixedDataTable =
 
 	"use strict";
 
-	var emptyFunction = __webpack_require__(78);
+	var emptyFunction = __webpack_require__(77);
 
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -7085,56 +7136,8 @@ var FixedDataTable =
 	}
 
 	module.exports = warning;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
-
-/***/ },
-/* 72 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-
-	"use strict";
-
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-
-	module.exports = shallowEqual;
-
 
 /***/ },
 /* 73 */
@@ -7143,69 +7146,40 @@ var FixedDataTable =
 	// shim for using process in browser
 
 	var process = module.exports = {};
+	var queue = [];
+	var draining = false;
 
-	process.nextTick = (function () {
-	    var canSetImmediate = typeof window !== 'undefined'
-	    && window.setImmediate;
-	    var canMutationObserver = typeof window !== 'undefined'
-	    && window.MutationObserver;
-	    var canPost = typeof window !== 'undefined'
-	    && window.postMessage && window.addEventListener
-	    ;
-
-	    if (canSetImmediate) {
-	        return function (f) { return window.setImmediate(f) };
+	function drainQueue() {
+	    if (draining) {
+	        return;
 	    }
-
-	    var queue = [];
-
-	    if (canMutationObserver) {
-	        var hiddenDiv = document.createElement("div");
-	        var observer = new MutationObserver(function () {
-	            var queueList = queue.slice();
-	            queue.length = 0;
-	            queueList.forEach(function (fn) {
-	                fn();
-	            });
-	        });
-
-	        observer.observe(hiddenDiv, { attributes: true });
-
-	        return function nextTick(fn) {
-	            if (!queue.length) {
-	                hiddenDiv.setAttribute('yes', 'no');
-	            }
-	            queue.push(fn);
-	        };
+	    draining = true;
+	    var currentQueue;
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        var i = -1;
+	        while (++i < len) {
+	            currentQueue[i]();
+	        }
+	        len = queue.length;
 	    }
-
-	    if (canPost) {
-	        window.addEventListener('message', function (ev) {
-	            var source = ev.source;
-	            if ((source === window || source === null) && ev.data === 'process-tick') {
-	                ev.stopPropagation();
-	                if (queue.length > 0) {
-	                    var fn = queue.shift();
-	                    fn();
-	                }
-	            }
-	        }, true);
-
-	        return function nextTick(fn) {
-	            queue.push(fn);
-	            window.postMessage('process-tick', '*');
-	        };
+	    draining = false;
+	}
+	process.nextTick = function (fun) {
+	    queue.push(fun);
+	    if (!draining) {
+	        setTimeout(drainQueue, 0);
 	    }
-
-	    return function nextTick(fn) {
-	        setTimeout(fn, 0);
-	    };
-	})();
+	};
 
 	process.title = 'browser';
 	process.browser = true;
 	process.env = {};
 	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
 
 	function noop() {}
 
@@ -7226,6 +7200,7 @@ var FixedDataTable =
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
 	};
+	process.umask = function() { return 0; };
 
 
 /***/ },
@@ -7395,51 +7370,6 @@ var FixedDataTable =
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule joinClasses
-	 * @typechecks static-only
-	 */
-
-	"use strict";
-
-	/**
-	 * Combines multiple className strings into one.
-	 * http://jsperf.com/joinclasses-args-vs-array
-	 *
-	 * @param {...?string} classes
-	 * @return {string}
-	 */
-	function joinClasses(className/*, ... */) {
-	  if (!className) {
-	    className = '';
-	  }
-	  var nextClass;
-	  var argLength = arguments.length;
-	  if (argLength > 1) {
-	    for (var ii = 1; ii < argLength; ii++) {
-	      nextClass = arguments[ii];
-	      if (nextClass) {
-	        className = (className ? className + ' ' : '') + nextClass;
-	      }
-	    }
-	  }
-	  return className;
-	}
-
-	module.exports = joinClasses;
-
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule emptyFunction
 	 */
 
@@ -7467,7 +7397,7 @@ var FixedDataTable =
 
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -7523,8 +7453,53 @@ var FixedDataTable =
 	};
 
 	module.exports = invariant;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule joinClasses
+	 * @typechecks static-only
+	 */
+
+	"use strict";
+
+	/**
+	 * Combines multiple className strings into one.
+	 * http://jsperf.com/joinclasses-args-vs-array
+	 *
+	 * @param {...?string} classes
+	 * @return {string}
+	 */
+	function joinClasses(className/*, ... */) {
+	  if (!className) {
+	    className = '';
+	  }
+	  var nextClass;
+	  var argLength = arguments.length;
+	  if (argLength > 1) {
+	    for (var ii = 1; ii < argLength; ii++) {
+	      nextClass = arguments[ii];
+	      if (nextClass) {
+	        className = (className ? className + ' ' : '') + nextClass;
+	      }
+	    }
+	  }
+	  return className;
+	}
+
+	module.exports = joinClasses;
+
+
 /***/ }
-/******/ ])
+/******/ ]);

@@ -41,19 +41,19 @@
   top: 0;
   -webkit-transition-property: background-color width;
           transition-property: background-color width;
-  width: 15px;
+  width: var(scrollbar-size);
 }
 
 /* Touching the scroll-track directly makes the scroll-track bolder */
 .public_Scrollbar_mainVertical.Scrollbar_mainActive,
 .public_Scrollbar_mainVertical:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  width: 17px;
+  background-color: var(scrollbar-track-color);
+  width: var(scrollbar-size-large);
 }
 
 .public_Scrollbar_mainHorizontal {
   bottom: 0;
-  height: 15px;
+  height: var(scrollbar-size);
   left: 0;
   -webkit-transition-property: background-color height;
           transition-property: background-color height;
@@ -62,8 +62,8 @@
 /* Touching the scroll-track directly makes the scroll-track bolder */
 .public_Scrollbar_mainHorizontal.Scrollbar_mainActive,
 .public_Scrollbar_mainHorizontal:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  height: 17px;
+  background-color: var(scrollbar-track-color);
+  height: var(scrollbar-size-large);
 }
 
 .Scrollbar_mainOpaque,
@@ -86,8 +86,8 @@
  * scrollface element while dragging it.
  */
 .Scrollbar_face:after {
-  background-color: #c2c2c2;
-  border-radius: 6px;
+  background-color: var(scrollbar-face-color);
+  border-radius: var(scrollbar-face-radius);
   content: '';
   display: block;
   position: absolute;
@@ -98,7 +98,7 @@
 .public_Scrollbar_main:hover .Scrollbar_face:after,
 .Scrollbar_mainActive .Scrollbar_face:after,
 .Scrollbar_faceActive:after {
-  background-color: #7d7d7d;
+  background-color: var(scrollbar-face-active-color);
 }
 
 .Scrollbar_faceHorizontal {
@@ -108,9 +108,9 @@
 }
 
 .Scrollbar_faceHorizontal:after {
-  bottom: 4px;
+  bottom: var(scrollbar-face-margin);
   left: 0;
-  top: 4px;
+  top: var(scrollbar-face-margin);
   width: 100%;
 }
 
@@ -122,8 +122,8 @@
 
 .Scrollbar_faceVertical:after {
   height: 100%;
-  left: 4px;
-  right: 4px;
+  left: var(scrollbar-face-margin);
+  right: var(scrollbar-face-margin);
   top: 0;
 }
 /**
