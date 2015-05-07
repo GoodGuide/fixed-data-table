@@ -42,13 +42,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/fixed-data-table.git"
+    "url": "https://github.com/GoodGuide/fixed-data-table.git"
   },
   "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/facebook/fixed-data-table/issues"
-  },
-  "homepage": "http://facebook.github.io/fixed-data-table",
+  "homepage": "https://github.com/GoodGuide/fixed-data-table.git",
   "tags": [
     "react",
     "table"
