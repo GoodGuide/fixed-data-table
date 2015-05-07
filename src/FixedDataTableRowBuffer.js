@@ -15,8 +15,11 @@ var IntegerBufferSet = require('IntegerBufferSet');
 
 var clamp = require('clamp');
 var invariant = require('invariant');
-var MIN_BUFFER_ROWS = 5;
-var MAX_BUFFER_ROWS = 15;
+
+// Set row buffer to match Goodguide's requirements.
+// TODO: Make this setable via Table props and pull request back to main project.
+var MIN_BUFFER_ROWS = 50;
+var MAX_BUFFER_ROWS = 50;
 
 // FixedDataTableRowBuffer is a helper class that executes row buffering
 // logic for FixedDataTable. It figures out which rows should be rendered
