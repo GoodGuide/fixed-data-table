@@ -43,11 +43,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/fixed-data-table.git"
+    "url": "https://github.com/goodguide/fixed-data-table.git"
   },
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/facebook/fixed-data-table/issues"
+    "url": "https://github.com/goodguide/fixed-data-table/issues"
   },
   "homepage": "http://facebook.github.io/fixed-data-table",
   "tags": [
