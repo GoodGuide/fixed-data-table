@@ -5248,8 +5248,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var clamp = __webpack_require__(19);
 	var invariant = __webpack_require__(61);
-	var MIN_BUFFER_ROWS = 50;
-	var MAX_BUFFER_ROWS = 50;
+	var MIN_BUFFER_ROWS = 5;
+	var MAX_BUFFER_ROWS = 15;
 
 	// FixedDataTableRowBuffer is a helper class that executes row buffering
 	// logic for FixedDataTable. It figures out which rows should be rendered
