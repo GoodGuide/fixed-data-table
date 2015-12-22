@@ -10,7 +10,7 @@
  * @typechecks
  */
 
-var React = require('React');
+var React = require('WrappedReact');
 var FixedDataTableRowBuffer = require('FixedDataTableRowBuffer');
 var FixedDataTableRow = require('FixedDataTableRow.react');
 

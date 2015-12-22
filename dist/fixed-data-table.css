@@ -17,123 +17,6 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule Scrollbar
- */
-
-.public_Scrollbar_main {
-  box-sizing: border-box;
-  outline: none;
-  overflow: hidden;
-  position: absolute;
-  -webkit-transition-duration: 250ms;
-          transition-duration: 250ms;
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.public_Scrollbar_mainVertical {
-  bottom: 0;
-  right: 0;
-  top: 0;
-  -webkit-transition-property: background-color width;
-          transition-property: background-color width;
-  width: 15px;
-}
-
-/* Touching the scroll-track directly makes the scroll-track bolder */
-.public_Scrollbar_mainVertical.Scrollbar_mainActive,
-.public_Scrollbar_mainVertical:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  width: 17px;
-}
-
-.public_Scrollbar_mainHorizontal {
-  bottom: 0;
-  height: 15px;
-  left: 0;
-  -webkit-transition-property: background-color height;
-          transition-property: background-color height;
-}
-
-/* Touching the scroll-track directly makes the scroll-track bolder */
-.public_Scrollbar_mainHorizontal.Scrollbar_mainActive,
-.public_Scrollbar_mainHorizontal:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  height: 17px;
-}
-
-.Scrollbar_mainOpaque,
-.Scrollbar_mainOpaque.Scrollbar_mainActive,
-.Scrollbar_mainOpaque:hover {
-  background-color: #fff;
-}
-
-.Scrollbar_face {
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: 1;
-}
-
-/**
- * This selector renders the "nub" of the scrollface. The nub must
- * be rendered as pseudo-element so that it won't receive any UI events then
- * we can get the correct `event.offsetX` and `event.offsetY` from the
- * scrollface element while dragging it.
- */
-.Scrollbar_face:after {
-  background-color: #c2c2c2;
-  border-radius: 6px;
-  content: '';
-  display: block;
-  position: absolute;
-  -webkit-transition: background-color 250ms ease;
-          transition: background-color 250ms ease;
-}
-
-.public_Scrollbar_main:hover .Scrollbar_face:after,
-.Scrollbar_mainActive .Scrollbar_face:after,
-.Scrollbar_faceActive:after {
-  background-color: #7d7d7d;
-}
-
-.Scrollbar_faceHorizontal {
-  bottom: 0;
-  left: 0;
-  top: 0;
-}
-
-.Scrollbar_faceHorizontal:after {
-  bottom: 4px;
-  left: 0;
-  top: 4px;
-  width: 100%;
-}
-
-.Scrollbar_faceVertical {
-  left: 0;
-  right: 0;
-  top: 0;
-}
-
-.Scrollbar_faceVertical:after {
-  height: 100%;
-  left: 4px;
-  right: 4px;
-  top: 0;
-}
-/**
- * Copyright (c) 2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
  * @providesModule fixedDataTable
  */
 
@@ -384,5 +267,122 @@
 
 .fixedDataTableRow_rowWrapper {
   position: absolute;
+  top: 0;
+}
+/**
+ * Copyright (c) 2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule Scrollbar
+ */
+
+.public_Scrollbar_main {
+  box-sizing: border-box;
+  outline: none;
+  overflow: hidden;
+  position: absolute;
+  -webkit-transition-duration: 250ms;
+          transition-duration: 250ms;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.public_Scrollbar_mainVertical {
+  bottom: 0;
+  right: 0;
+  top: 0;
+  -webkit-transition-property: background-color width;
+          transition-property: background-color width;
+  width: 15px;
+}
+
+/* Touching the scroll-track directly makes the scroll-track bolder */
+.public_Scrollbar_mainVertical.Scrollbar_mainActive,
+.public_Scrollbar_mainVertical:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 17px;
+}
+
+.public_Scrollbar_mainHorizontal {
+  bottom: 0;
+  height: 15px;
+  left: 0;
+  -webkit-transition-property: background-color height;
+          transition-property: background-color height;
+}
+
+/* Touching the scroll-track directly makes the scroll-track bolder */
+.public_Scrollbar_mainHorizontal.Scrollbar_mainActive,
+.public_Scrollbar_mainHorizontal:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  height: 17px;
+}
+
+.Scrollbar_mainOpaque,
+.Scrollbar_mainOpaque.Scrollbar_mainActive,
+.Scrollbar_mainOpaque:hover {
+  background-color: #fff;
+}
+
+.Scrollbar_face {
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+}
+
+/**
+ * This selector renders the "nub" of the scrollface. The nub must
+ * be rendered as pseudo-element so that it won't receive any UI events then
+ * we can get the correct `event.offsetX` and `event.offsetY` from the
+ * scrollface element while dragging it.
+ */
+.Scrollbar_face:after {
+  background-color: #c2c2c2;
+  border-radius: 6px;
+  content: '';
+  display: block;
+  position: absolute;
+  -webkit-transition: background-color 250ms ease;
+          transition: background-color 250ms ease;
+}
+
+.public_Scrollbar_main:hover .Scrollbar_face:after,
+.Scrollbar_mainActive .Scrollbar_face:after,
+.Scrollbar_faceActive:after {
+  background-color: #7d7d7d;
+}
+
+.Scrollbar_faceHorizontal {
+  bottom: 0;
+  left: 0;
+  top: 0;
+}
+
+.Scrollbar_faceHorizontal:after {
+  bottom: 4px;
+  left: 0;
+  top: 4px;
+  width: 100%;
+}
+
+.Scrollbar_faceVertical {
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.Scrollbar_faceVertical:after {
+  height: 100%;
+  left: 4px;
+  right: 4px;
   top: 0;
 }

@@ -14,17 +14,21 @@
  * @typechecks
  */
 
-var DOMMouseMoveTracker = require('DOMMouseMoveTracker');
-var Locale = require('Locale');
-var React = require('WrappedReact');
-var ReactComponentWithPureRenderMixin = require('ReactComponentWithPureRenderMixin');
+'use strict';
 
-var clamp = require('clamp');
-var cx = require('cx');
+var DOMMouseMoveTracker = require('./DOMMouseMoveTracker');
+var Locale = require('./Locale');
+var React = require('./WrappedReact');
+var ReactComponentWithPureRenderMixin = require('./ReactComponentWithPureRenderMixin');
 
-var {PropTypes} = React;
+var clamp = require('./clamp');
+var cx = require('./cx');
+
+var PropTypes = React.PropTypes;
 
 var FixedDataTableColumnResizeHandle = React.createClass({
+  displayName: 'FixedDataTableColumnResizeHandle',
+
   mixins: [ReactComponentWithPureRenderMixin],
 
   propTypes: {
@@ -77,20 +81,17 @@ var FixedDataTableColumnResizeHandle = React.createClass({
     /**
      * Column key for the column being resized.
      */
-    columnKey: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
+    columnKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   },
 
-  getInitialState() /*object*/ {
+  getInitialState: function getInitialState() /*object*/{
     return {
       width: 0,
       cursorDelta: 0
     };
   },
 
-  componentWillReceiveProps(/*object*/ newProps) {
+  componentWillReceiveProps: function componentWillReceiveProps( /*object*/newProps) {
     if (newProps.initialEvent && !this._mouseMoveTracker.isDragging()) {
       this._mouseMoveTracker.captureMouseMoves(newProps.initialEvent);
       this.setState({
@@ -100,51 +101,46 @@ var FixedDataTableColumnResizeHandle = React.createClass({
     }
   },
 
-  componentDidMount() {
-    this._mouseMoveTracker = new DOMMouseMoveTracker(
-      this._onMove,
-      this._onColumnResizeEnd,
-      document.body
-    );
+  componentDidMount: function componentDidMount() {
+    this._mouseMoveTracker = new DOMMouseMoveTracker(this._onMove, this._onColumnResizeEnd, document.body);
   },
 
-  componentWillUnmount() {
+  componentWillUnmount: function componentWillUnmount() {
     this._mouseMoveTracker.releaseMouseMoves();
     this._mouseMoveTracker = null;
   },
 
-  render() /*object*/ {
+  render: function render() /*object*/{
     var style = {
       width: this.state.width,
-      height: this.props.height,
+      height: this.props.height
     };
     if (Locale.isRTL()) {
       style.right = this.props.leftOffset;
     } else {
       style.left = this.props.leftOffset;
     }
-    return (
-      <div
-        className={cx({
+    return React.createElement(
+      'div',
+      {
+        className: cx({
           'fixedDataTableColumnResizerLine/main': true,
           'fixedDataTableColumnResizerLine/hiddenElem': !this.props.visible
-        })}
-        style={style}>
-        <div
-          className={cx('fixedDataTableColumnResizerLine/mouseArea')}
-          style={{height: this.props.height}}
-        />
-      </div>
+        }),
+        style: style },
+      React.createElement('div', {
+        className: cx('fixedDataTableColumnResizerLine/mouseArea'),
+        style: { height: this.props.height }
+      })
     );
   },
 
-  _onMove(/*number*/ deltaX) {
+  _onMove: function _onMove( /*number*/deltaX) {
     if (Locale.isRTL()) {
       deltaX = -deltaX;
     }
     var newWidth = this.state.cursorDelta + deltaX;
-    var newColumnWidth =
-      clamp(this.props.minWidth, newWidth, this.props.maxWidth);
+    var newColumnWidth = clamp(this.props.minWidth, newWidth, this.props.maxWidth);
 
     // Please note cursor delta is the different between the currently width
     // and the new width.
@@ -154,13 +150,10 @@ var FixedDataTableColumnResizeHandle = React.createClass({
     });
   },
 
-  _onColumnResizeEnd() {
+  _onColumnResizeEnd: function _onColumnResizeEnd() {
     this._mouseMoveTracker.releaseMouseMoves();
-    this.props.onColumnResizeEnd(
-      this.state.width,
-      this.props.columnKey
-    );
-  },
+    this.props.onColumnResizeEnd(this.state.width, this.props.columnKey);
+  }
 });
 
 module.exports = FixedDataTableColumnResizeHandle;

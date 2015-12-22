@@ -12,42 +12,38 @@
 
 /* jslint bitwise: true */
 
-var FixedDataTableHelper = require('FixedDataTableHelper');
-var Locale = require('Locale');
-var React = require('WrappedReact');
-var ReactComponentWithPureRenderMixin = require('ReactComponentWithPureRenderMixin');
-var ReactWheelHandler = require('ReactWheelHandler');
-var Scrollbar = require('Scrollbar.react');
-var FixedDataTableBufferedRows = require('FixedDataTableBufferedRows.react');
-var FixedDataTableColumnResizeHandle = require('FixedDataTableColumnResizeHandle.react');
-var FixedDataTableRow = require('FixedDataTableRow.react');
-var FixedDataTableScrollHelper = require('FixedDataTableScrollHelper');
-var FixedDataTableWidthHelper = require('FixedDataTableWidthHelper');
+'use strict';
 
-var cloneWithProps = require('cloneWithProps');
-var cx = require('cx');
-var debounceCore = require('debounceCore');
-var emptyFunction = require('emptyFunction');
-var invariant = require('invariant');
-var shallowEqual = require('shallowEqual');
-var translateDOMPositionXY = require('translateDOMPositionXY');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var {PropTypes} = React;
+var FixedDataTableHelper = require('./FixedDataTableHelper');
+var Locale = require('./Locale');
+var React = require('./WrappedReact');
+var ReactComponentWithPureRenderMixin = require('./ReactComponentWithPureRenderMixin');
+var ReactWheelHandler = require('./ReactWheelHandler');
+var Scrollbar = require('./Scrollbar.react');
+var FixedDataTableBufferedRows = require('./FixedDataTableBufferedRows.react');
+var FixedDataTableColumnResizeHandle = require('./FixedDataTableColumnResizeHandle.react');
+var FixedDataTableRow = require('./FixedDataTableRow.react');
+var FixedDataTableScrollHelper = require('./FixedDataTableScrollHelper');
+var FixedDataTableWidthHelper = require('./FixedDataTableWidthHelper');
+
+var cloneWithProps = require('./cloneWithProps');
+var cx = require('./cx');
+var debounceCore = require('./debounceCore');
+var emptyFunction = require('./emptyFunction');
+var invariant = require('./invariant');
+var shallowEqual = require('./shallowEqual');
+var translateDOMPositionXY = require('./translateDOMPositionXY');
+
+var PropTypes = React.PropTypes;
+
 var ReactChildren = React.Children;
 
 var renderToString = FixedDataTableHelper.renderToString;
 var EMPTY_OBJECT = {};
 var BORDER_HEIGHT = 1;
-var COLUMN_SETTING_NAMES = [
-  'bodyFixedColumns',
-  'bodyScrollableColumns',
-  'headFixedColumns',
-  'headScrollableColumns',
-  'footFixedColumns',
-  'footScrollableColumns',
-  'groupHeaderFixedColumns',
-  'groupHeaderScrollableColumns',
-];
+var COLUMN_SETTING_NAMES = ['bodyFixedColumns', 'bodyScrollableColumns', 'headFixedColumns', 'headScrollableColumns', 'footFixedColumns', 'footScrollableColumns', 'groupHeaderFixedColumns', 'groupHeaderScrollableColumns'];
 
 /**
  * Data grid component with fixed or scrollable header and columns.
@@ -96,6 +92,7 @@ var COLUMN_SETTING_NAMES = [
  *   vertically or horizontally.
  */
 var FixedDataTable = React.createClass({
+  displayName: 'FixedDataTable',
 
   propTypes: {
 
@@ -194,10 +191,7 @@ var FixedDataTable = React.createClass({
      * DEPRECATED - use footerDataGetter instead.
      * Data that will be passed to footer cell renderers.
      */
-    footerData: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array,
-    ]),
+    footerData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 
     /**
      * Function that is called to get the data for the footer row.
@@ -266,31 +260,23 @@ var FixedDataTable = React.createClass({
     /**
      * Whether a column is currently being resized.
      */
-    isColumnResizing: PropTypes.bool,
+    isColumnResizing: PropTypes.bool
   },
 
-  getDefaultProps() /*object*/ {
+  getDefaultProps: function getDefaultProps() /*object*/{
     return {
       footerHeight: 0,
       groupHeaderHeight: 0,
       headerHeight: 0,
       scrollLeft: 0,
-      scrollTop: 0,
+      scrollTop: 0
     };
   },
 
-  getInitialState() /*object*/ {
+  getInitialState: function getInitialState() /*object*/{
     var props = this.props;
-    var viewportHeight = props.height -
-      props.headerHeight -
-      props.footerHeight -
-      props.groupHeaderHeight;
-    this._scrollHelper = new FixedDataTableScrollHelper(
-      props.rowsCount,
-      props.rowHeight,
-      viewportHeight,
-      props.rowHeightGetter
-    );
+    var viewportHeight = props.height - props.headerHeight - props.footerHeight - props.groupHeaderHeight;
+    this._scrollHelper = new FixedDataTableScrollHelper(props.rowsCount, props.rowHeight, viewportHeight, props.rowHeightGetter);
     if (props.scrollTop) {
       this._scrollHelper.scrollTo(props.scrollTop);
     }
@@ -299,7 +285,7 @@ var FixedDataTable = React.createClass({
     return this._calculateState(this.props);
   },
 
-  componentWillMount() {
+  componentWillMount: function componentWillMount() {
     var scrollToRow = this.props.scrollToRow;
     if (scrollToRow !== undefined && scrollToRow !== null) {
       this._rowToScrollTo = scrollToRow;
@@ -308,14 +294,10 @@ var FixedDataTable = React.createClass({
     if (scrollToColumn !== undefined && scrollToColumn !== null) {
       this._columnToScrollTo = scrollToColumn;
     }
-    this._wheelHandler = new ReactWheelHandler(
-      this._onWheel,
-      this._shouldHandleWheelX,
-      this._shouldHandleWheelY
-    );
+    this._wheelHandler = new ReactWheelHandler(this._onWheel, this._shouldHandleWheelX, this._shouldHandleWheelY);
   },
 
-  _shouldHandleWheelX(/*number*/ delta) /*boolean*/ {
+  _shouldHandleWheelX: function _shouldHandleWheelX( /*number*/delta) /*boolean*/{
     if (this.props.overflowX === 'hidden') {
       return false;
     }
@@ -325,14 +307,11 @@ var FixedDataTable = React.createClass({
       return false;
     }
 
-    return(
-      (delta < 0 && this.state.scrollX > 0) ||
-      (delta >= 0 && this.state.scrollX < this.state.maxScrollX)
-    );
+    return delta < 0 && this.state.scrollX > 0 || delta >= 0 && this.state.scrollX < this.state.maxScrollX;
   },
 
-  _shouldHandleWheelY(/*number*/ delta) /*boolean*/ {
-    if (this.props.overflowY === 'hidden'|| delta === 0) {
+  _shouldHandleWheelY: function _shouldHandleWheelY( /*number*/delta) /*boolean*/{
+    if (this.props.overflowY === 'hidden' || delta === 0) {
       return false;
     }
 
@@ -341,13 +320,10 @@ var FixedDataTable = React.createClass({
       return false;
     }
 
-    return(
-      (delta < 0 && this.state.scrollY > 0) ||
-      (delta >= 0 && this.state.scrollY < this.state.maxScrollY)
-    );
+    return delta < 0 && this.state.scrollY > 0 || delta >= 0 && this.state.scrollY < this.state.maxScrollY;
   },
 
-  _reportContentHeight() {
+  _reportContentHeight: function _reportContentHeight() {
     var scrollContentHeight = this.state.scrollContentHeight;
     var reservedHeight = this.state.reservedHeight;
     var requiredHeight = scrollContentHeight + reservedHeight;
@@ -360,18 +336,17 @@ var FixedDataTable = React.createClass({
     } else {
       contentHeight = this.state.height + this.state.maxScrollY;
     }
-    if (contentHeight !== this._contentHeight &&
-        this.props.onContentHeightChange) {
+    if (contentHeight !== this._contentHeight && this.props.onContentHeightChange) {
       this.props.onContentHeightChange(contentHeight);
     }
     this._contentHeight = contentHeight;
   },
 
-  componentDidMount() {
+  componentDidMount: function componentDidMount() {
     this._reportContentHeight();
   },
 
-  componentWillReceiveProps(/*object*/ nextProps) {
+  componentWillReceiveProps: function componentWillReceiveProps( /*object*/nextProps) {
     var scrollToRow = nextProps.scrollToRow;
     if (scrollToRow !== undefined && scrollToRow !== null) {
       this._rowToScrollTo = scrollToRow;
@@ -383,43 +358,38 @@ var FixedDataTable = React.createClass({
 
     var newOverflowX = nextProps.overflowX;
     var newOverflowY = nextProps.overflowY;
-    if (newOverflowX !== this.props.overflowX ||
-        newOverflowY !== this.props.overflowY) {
-      this._wheelHandler = new ReactWheelHandler(
-        this._onWheel,
-        newOverflowX !== 'hidden', // Should handle horizontal scroll
-        newOverflowY !== 'hidden' // Should handle vertical scroll
+    if (newOverflowX !== this.props.overflowX || newOverflowY !== this.props.overflowY) {
+      this._wheelHandler = new ReactWheelHandler(this._onWheel, newOverflowX !== 'hidden', // Should handle horizontal scroll
+      newOverflowY !== 'hidden' // Should handle vertical scroll
       );
     }
 
     this.setState(this._calculateState(nextProps, this.state));
   },
 
-  componentDidUpdate() {
+  componentDidUpdate: function componentDidUpdate() {
     this._reportContentHeight();
   },
 
-  render() /*object*/ {
+  render: function render() /*object*/{
     var state = this.state;
     var props = this.props;
 
     var groupHeader;
     if (state.useGroupHeader) {
-      groupHeader = (
-        <FixedDataTableRow
-          key="group_header"
-          className={cx('public/fixedDataTable/header')}
-          data={state.groupHeaderData}
-          width={state.width}
-          height={state.groupHeaderHeight}
-          index={0}
-          zIndex={1}
-          offsetTop={0}
-          scrollLeft={state.scrollX}
-          fixedColumns={state.groupHeaderFixedColumns}
-          scrollableColumns={state.groupHeaderScrollableColumns}
-        />
-      );
+      groupHeader = React.createElement(FixedDataTableRow, {
+        key: 'group_header',
+        className: cx('public/fixedDataTable/header'),
+        data: state.groupHeaderData,
+        width: state.width,
+        height: state.groupHeaderHeight,
+        index: 0,
+        zIndex: 1,
+        offsetTop: 0,
+        scrollLeft: state.scrollX,
+        fixedColumns: state.groupHeaderFixedColumns,
+        scrollableColumns: state.groupHeaderScrollableColumns
+      });
     }
 
     var maxScrollY = this.state.maxScrollY;
@@ -431,170 +401,151 @@ var FixedDataTable = React.createClass({
     var headerOffsetTop = state.useGroupHeader ? state.groupHeaderHeight : 0;
     var bodyOffsetTop = headerOffsetTop + state.headerHeight;
     var bottomSectionOffset = 0;
-    var footOffsetTop = props.maxHeight != null
-      ? bodyOffsetTop + state.bodyHeight
-      : scrollbarYHeight - props.footerHeight;
+    var footOffsetTop = props.maxHeight != null ? bodyOffsetTop + state.bodyHeight : scrollbarYHeight - props.footerHeight;
     var rowsContainerHeight = footOffsetTop + state.footerHeight;
 
     if (props.ownerHeight !== undefined && props.ownerHeight < state.height) {
       bottomSectionOffset = props.ownerHeight - state.height;
-      footOffsetTop = Math.min(
-        footOffsetTop,
-        scrollbarYHeight + bottomSectionOffset - state.footerHeight
-      );
+      footOffsetTop = Math.min(footOffsetTop, scrollbarYHeight + bottomSectionOffset - state.footerHeight);
       scrollbarYHeight = props.ownerHeight - scrollbarXHeight;
     }
 
     var verticalScrollbar;
     if (showScrollbarY) {
-      verticalScrollbar =
-        <Scrollbar
-          size={scrollbarYHeight}
-          contentSize={scrollbarYHeight + maxScrollY}
-          onScroll={this._onVerticalScroll}
-          position={state.scrollY}
-        />;
+      verticalScrollbar = React.createElement(Scrollbar, {
+        size: scrollbarYHeight,
+        contentSize: scrollbarYHeight + maxScrollY,
+        onScroll: this._onVerticalScroll,
+        position: state.scrollY
+      });
     }
 
     var horizontalScrollbar;
     if (showScrollbarX) {
       var scrollbarYWidth = showScrollbarY ? Scrollbar.SIZE : 0;
       var scrollbarXWidth = state.width - scrollbarYWidth;
-      horizontalScrollbar =
-        <HorizontalScrollbar
-          contentSize={scrollbarXWidth + state.maxScrollX}
-          offset={bottomSectionOffset}
-          onScroll={this._onHorizontalScroll}
-          position={state.scrollX}
-          size={scrollbarXWidth}
-        />;
+      horizontalScrollbar = React.createElement(HorizontalScrollbar, {
+        contentSize: scrollbarXWidth + state.maxScrollX,
+        offset: bottomSectionOffset,
+        onScroll: this._onHorizontalScroll,
+        position: state.scrollX,
+        size: scrollbarXWidth
+      });
     }
 
-    var dragKnob =
-      <FixedDataTableColumnResizeHandle
-        height={state.height}
-        initialWidth={state.columnResizingData.width || 0}
-        minWidth={state.columnResizingData.minWidth || 0}
-        maxWidth={state.columnResizingData.maxWidth || Number.MAX_VALUE}
-        visible={!!state.isColumnResizing}
-        leftOffset={state.columnResizingData.left || 0}
-        knobHeight={state.headerHeight}
-        initialEvent={state.columnResizingData.initialEvent}
-        onColumnResizeEnd={props.onColumnResizeEndCallback}
-        columnKey={state.columnResizingData.key}
-      />;
+    var dragKnob = React.createElement(FixedDataTableColumnResizeHandle, {
+      height: state.height,
+      initialWidth: state.columnResizingData.width || 0,
+      minWidth: state.columnResizingData.minWidth || 0,
+      maxWidth: state.columnResizingData.maxWidth || Number.MAX_VALUE,
+      visible: !!state.isColumnResizing,
+      leftOffset: state.columnResizingData.left || 0,
+      knobHeight: state.headerHeight,
+      initialEvent: state.columnResizingData.initialEvent,
+      onColumnResizeEnd: props.onColumnResizeEndCallback,
+      columnKey: state.columnResizingData.key
+    });
 
     var footer = null;
     if (state.footerHeight) {
-      var footerData = props.footerDataGetter
-        ? props.footerDataGetter()
-        : props.footerData;
+      var footerData = props.footerDataGetter ? props.footerDataGetter() : props.footerData;
 
-      footer =
-        <FixedDataTableRow
-          key="footer"
-          className={cx('public/fixedDataTable/footer')}
-          data={footerData}
-          fixedColumns={state.footFixedColumns}
-          height={state.footerHeight}
-          index={-1}
-          zIndex={1}
-          offsetTop={footOffsetTop}
-          scrollableColumns={state.footScrollableColumns}
-          scrollLeft={state.scrollX}
-          width={state.width}
-        />;
+      footer = React.createElement(FixedDataTableRow, {
+        key: 'footer',
+        className: cx('public/fixedDataTable/footer'),
+        data: footerData,
+        fixedColumns: state.footFixedColumns,
+        height: state.footerHeight,
+        index: -1,
+        zIndex: 1,
+        offsetTop: footOffsetTop,
+        scrollableColumns: state.footScrollableColumns,
+        scrollLeft: state.scrollX,
+        width: state.width
+      });
     }
 
     var rows = this._renderRows(bodyOffsetTop);
 
-    var header =
-      <FixedDataTableRow
-        key="header"
-        className={cx('public/fixedDataTable/header')}
-        data={state.headData}
-        width={state.width}
-        height={state.headerHeight}
-        index={-1}
-        zIndex={1}
-        offsetTop={headerOffsetTop}
-        scrollLeft={state.scrollX}
-        fixedColumns={state.headFixedColumns}
-        scrollableColumns={state.headScrollableColumns}
-        onColumnResize={this._onColumnResize}
-      />;
+    var header = React.createElement(FixedDataTableRow, {
+      key: 'header',
+      className: cx('public/fixedDataTable/header'),
+      data: state.headData,
+      width: state.width,
+      height: state.headerHeight,
+      index: -1,
+      zIndex: 1,
+      offsetTop: headerOffsetTop,
+      scrollLeft: state.scrollX,
+      fixedColumns: state.headFixedColumns,
+      scrollableColumns: state.headScrollableColumns,
+      onColumnResize: this._onColumnResize
+    });
 
     var topShadow;
     var bottomShadow;
     if (state.scrollY) {
-      topShadow =
-        <div
-          className={cx('fixedDataTable/topShadow')}
-          style={{top: bodyOffsetTop}}
-        />;
+      topShadow = React.createElement('div', {
+        className: cx('fixedDataTable/topShadow'),
+        style: { top: bodyOffsetTop }
+      });
     }
 
-    if (
-      (state.ownerHeight != null &&
-        state.ownerHeight < state.height &&
-        state.scrollContentHeight + state.reservedHeight > state.ownerHeight) ||
-      state.scrollY < maxScrollY
-    ) {
-      bottomShadow =
-        <div
-          className={cx('fixedDataTable/bottomShadow')}
-          style={{top: footOffsetTop}}
-        />;
+    if (state.ownerHeight != null && state.ownerHeight < state.height && state.scrollContentHeight + state.reservedHeight > state.ownerHeight || state.scrollY < maxScrollY) {
+      bottomShadow = React.createElement('div', {
+        className: cx('fixedDataTable/bottomShadow'),
+        style: { top: footOffsetTop }
+      });
     }
 
-    return (
-      <div
-        className={cx('public/fixedDataTable/main')}
-        onWheel={this._wheelHandler.onWheel}
-        style={{height: state.height, width: state.width}}>
-        <div
-          className={cx('fixedDataTable/rowsContainer')}
-          style={{height: rowsContainerHeight, width: state.width}}>
-          {dragKnob}
-          {groupHeader}
-          {header}
-          {rows}
-          {footer}
-          {topShadow}
-          {bottomShadow}
-        </div>
-        {verticalScrollbar}
-        {horizontalScrollbar}
-      </div>
+    return React.createElement(
+      'div',
+      {
+        className: cx('public/fixedDataTable/main'),
+        onWheel: this._wheelHandler.onWheel,
+        style: { height: state.height, width: state.width } },
+      React.createElement(
+        'div',
+        {
+          className: cx('fixedDataTable/rowsContainer'),
+          style: { height: rowsContainerHeight, width: state.width } },
+        dragKnob,
+        groupHeader,
+        header,
+        rows,
+        footer,
+        topShadow,
+        bottomShadow
+      ),
+      verticalScrollbar,
+      horizontalScrollbar
     );
   },
 
-  _renderRows(/*number*/ offsetTop) /*object*/ {
+  _renderRows: function _renderRows( /*number*/offsetTop) /*object*/{
     var state = this.state;
 
-    return (
-      <FixedDataTableBufferedRows
-        defaultRowHeight={state.rowHeight}
-        firstRowIndex={state.firstRowIndex}
-        firstRowOffset={state.firstRowOffset}
-        fixedColumns={state.bodyFixedColumns}
-        height={state.bodyHeight}
-        offsetTop={offsetTop}
-        onRowClick={state.onRowClick}
-        onRowMouseDown={state.onRowMouseDown}
-        onRowMouseEnter={state.onRowMouseEnter}
-        onRowMouseLeave={state.onRowMouseLeave}
-        rowClassNameGetter={state.rowClassNameGetter}
-        rowsCount={state.rowsCount}
-        rowGetter={state.rowGetter}
-        rowHeightGetter={state.rowHeightGetter}
-        scrollLeft={state.scrollX}
-        scrollableColumns={state.bodyScrollableColumns}
-        showLastRowBorder={true}
-        width={state.width}
-        rowPositionGetter={this._scrollHelper.getRowPosition}
-      />
-    );
+    return React.createElement(FixedDataTableBufferedRows, {
+      defaultRowHeight: state.rowHeight,
+      firstRowIndex: state.firstRowIndex,
+      firstRowOffset: state.firstRowOffset,
+      fixedColumns: state.bodyFixedColumns,
+      height: state.bodyHeight,
+      offsetTop: offsetTop,
+      onRowClick: state.onRowClick,
+      onRowMouseDown: state.onRowMouseDown,
+      onRowMouseEnter: state.onRowMouseEnter,
+      onRowMouseLeave: state.onRowMouseLeave,
+      rowClassNameGetter: state.rowClassNameGetter,
+      rowsCount: state.rowsCount,
+      rowGetter: state.rowGetter,
+      rowHeightGetter: state.rowHeightGetter,
+      scrollLeft: state.scrollX,
+      scrollableColumns: state.bodyScrollableColumns,
+      showLastRowBorder: true,
+      width: state.width,
+      rowPositionGetter: this._scrollHelper.getRowPosition
+    });
   },
 
   /**
@@ -602,14 +553,14 @@ var FixedDataTable = React.createClass({
    * resizer knob clicked on. It displays the resizer and puts in the correct
    * location on the table.
    */
-  _onColumnResize(
-    /*number*/ combinedWidth,
-    /*number*/ leftOffset,
-    /*number*/ cellWidth,
-    /*?number*/ cellMinWidth,
-    /*?number*/ cellMaxWidth,
-    /*number|string*/ columnKey,
-    /*object*/ event) {
+  _onColumnResize: function _onColumnResize(
+  /*number*/combinedWidth,
+  /*number*/leftOffset,
+  /*number*/cellWidth,
+  /*?number*/cellMinWidth,
+  /*?number*/cellMaxWidth,
+  /*number|string*/columnKey,
+  /*object*/event) {
     if (Locale.isRTL()) {
       leftOffset = -leftOffset;
     }
@@ -630,25 +581,20 @@ var FixedDataTable = React.createClass({
     });
   },
 
-  _populateColumnsAndColumnData(
-    /*array*/ columns,
-    /*?array*/ columnGroups
-  ) /*object*/ {
+  _populateColumnsAndColumnData: function _populateColumnsAndColumnData(
+  /*array*/columns,
+  /*?array*/columnGroups) /*object*/{
     var columnInfo = {};
     var bodyColumnTypes = this._splitColumnTypes(columns);
     columnInfo.bodyFixedColumns = bodyColumnTypes.fixed;
     columnInfo.bodyScrollableColumns = bodyColumnTypes.scrollable;
 
     columnInfo.headData = this._getHeadData(columns);
-    var headColumnTypes = this._splitColumnTypes(
-      this._createHeadColumns(columns)
-    );
+    var headColumnTypes = this._splitColumnTypes(this._createHeadColumns(columns));
     columnInfo.headFixedColumns = headColumnTypes.fixed;
     columnInfo.headScrollableColumns = headColumnTypes.scrollable;
 
-    var footColumnTypes = this._splitColumnTypes(
-      this._createFootColumns(columns)
-    );
+    var footColumnTypes = this._splitColumnTypes(this._createFootColumns(columns));
     columnInfo.footFixedColumns = footColumnTypes.fixed;
     columnInfo.footScrollableColumns = footColumnTypes.scrollable;
 
@@ -657,29 +603,20 @@ var FixedDataTable = React.createClass({
       columnGroups = this._createGroupHeaderColumns(columnGroups);
       var groupHeaderColumnTypes = this._splitColumnTypes(columnGroups);
       columnInfo.groupHeaderFixedColumns = groupHeaderColumnTypes.fixed;
-      columnInfo.groupHeaderScrollableColumns =
-        groupHeaderColumnTypes.scrollable;
+      columnInfo.groupHeaderScrollableColumns = groupHeaderColumnTypes.scrollable;
     }
     return columnInfo;
   },
 
-  _calculateState(/*object*/ props, /*?object*/ oldState) /*object*/ {
-    invariant(
-      props.height !== undefined || props.maxHeight !== undefined,
-      'You must set either a height or a maxHeight'
-    );
+  _calculateState: function _calculateState( /*object*/props, /*?object*/oldState) /*object*/{
+    invariant(props.height !== undefined || props.maxHeight !== undefined, 'You must set either a height or a maxHeight');
 
     var children = [];
-    ReactChildren.forEach(props.children, (child, index) => {
+    ReactChildren.forEach(props.children, function (child, index) {
       if (child == null) {
         return;
       }
-      invariant(
-        child.type.__TableColumnGroup__ ||
-        child.type.__TableColumn__,
-        'child type should be <FixedDataTableColumn /> or ' +
-        '<FixedDataTableColumnGroup />'
-      );
+      invariant(child.type.__TableColumnGroup__ || child.type.__TableColumn__, 'child type should be <FixedDataTableColumn /> or ' + '<FixedDataTableColumnGroup />');
       children.push(child);
     });
 
@@ -688,8 +625,8 @@ var FixedDataTable = React.createClass({
       useGroupHeader = true;
     }
 
-    var firstRowIndex = (oldState && oldState.firstRowIndex) || 0;
-    var firstRowOffset = (oldState && oldState.firstRowOffset) || 0;
+    var firstRowIndex = oldState && oldState.firstRowIndex || 0;
+    var firstRowOffset = oldState && oldState.firstRowOffset || 0;
     var scrollX, scrollY;
     if (oldState && props.overflowX !== 'hidden') {
       scrollX = oldState.scrollX;
@@ -706,8 +643,7 @@ var FixedDataTable = React.createClass({
     }
 
     if (this._rowToScrollTo !== undefined) {
-      scrollState =
-        this._scrollHelper.scrollRowIntoView(this._rowToScrollTo);
+      scrollState = this._scrollHelper.scrollRowIntoView(this._rowToScrollTo);
       firstRowIndex = scrollState.index;
       firstRowOffset = scrollState.offset;
       scrollY = scrollState.position;
@@ -719,18 +655,9 @@ var FixedDataTable = React.createClass({
     if (oldState && props.rowsCount !== oldState.rowsCount) {
       // Number of rows changed, try to scroll to the row from before the
       // change
-      var viewportHeight = props.height -
-        props.headerHeight -
-        props.footerHeight -
-        groupHeaderHeight;
-      this._scrollHelper = new FixedDataTableScrollHelper(
-        props.rowsCount,
-        props.rowHeight,
-        viewportHeight,
-        props.rowHeightGetter
-      );
-      var scrollState =
-        this._scrollHelper.scrollToRow(firstRowIndex, firstRowOffset);
+      var viewportHeight = props.height - props.headerHeight - props.footerHeight - groupHeaderHeight;
+      this._scrollHelper = new FixedDataTableScrollHelper(props.rowsCount, props.rowHeight, viewportHeight, props.rowHeightGetter);
+      var scrollState = this._scrollHelper.scrollToRow(firstRowIndex, firstRowOffset);
       firstRowIndex = scrollState.index;
       firstRowOffset = scrollState.offset;
       scrollY = scrollState.position;
@@ -749,24 +676,14 @@ var FixedDataTable = React.createClass({
     var columnGroups;
 
     if (useGroupHeader) {
-      var columnGroupSettings =
-        FixedDataTableWidthHelper.adjustColumnGroupWidths(
-          children,
-          props.width
-      );
+      var columnGroupSettings = FixedDataTableWidthHelper.adjustColumnGroupWidths(children, props.width);
       columns = columnGroupSettings.columns;
       columnGroups = columnGroupSettings.columnGroups;
     } else {
-      columns = FixedDataTableWidthHelper.adjustColumnWidths(
-        children,
-        props.width
-      );
+      columns = FixedDataTableWidthHelper.adjustColumnWidths(children, props.width);
     }
 
-    var columnInfo = this._populateColumnsAndColumnData(
-      columns,
-      columnGroups
-    );
+    var columnInfo = this._populateColumnsAndColumnData(columns, columnGroups);
 
     if (oldState) {
       columnInfo = this._tryReusingColumnSettings(columnInfo, oldState);
@@ -791,11 +708,8 @@ var FixedDataTable = React.createClass({
         }
 
         var availableScrollWidth = props.width - totalFixedColumnsWidth;
-        var selectedColumnWidth = columnInfo.bodyScrollableColumns[
-          this._columnToScrollTo - fixedColumnsCount
-        ].props.width;
-        var minAcceptableScrollPosition =
-          previousColumnsWidth + selectedColumnWidth - availableScrollWidth;
+        var selectedColumnWidth = columnInfo.bodyScrollableColumns[this._columnToScrollTo - fixedColumnsCount].props.width;
+        var minAcceptableScrollPosition = previousColumnsWidth + selectedColumnWidth - availableScrollWidth;
 
         if (scrollX < minAcceptableScrollPosition) {
           scrollX = minAcceptableScrollPosition;
@@ -810,16 +724,13 @@ var FixedDataTable = React.createClass({
 
     var useMaxHeight = props.height === undefined;
     var height = useMaxHeight ? props.maxHeight : props.height;
-    var totalHeightReserved = props.footerHeight + props.headerHeight +
-      groupHeaderHeight + 2 * BORDER_HEIGHT;
+    var totalHeightReserved = props.footerHeight + props.headerHeight + groupHeaderHeight + 2 * BORDER_HEIGHT;
     var bodyHeight = height - totalHeightReserved;
     var scrollContentHeight = this._scrollHelper.getContentHeight();
     var totalHeightNeeded = scrollContentHeight + totalHeightReserved;
-    var scrollContentWidth =
-      FixedDataTableWidthHelper.getTotalWidth(columns);
+    var scrollContentWidth = FixedDataTableWidthHelper.getTotalWidth(columns);
 
-    var horizontalScrollbarVisible = scrollContentWidth > props.width &&
-      props.overflowX !== 'hidden';
+    var horizontalScrollbarVisible = scrollContentWidth > props.width && props.overflowX !== 'hidden';
 
     if (horizontalScrollbarVisible) {
       bodyHeight -= Scrollbar.SIZE;
@@ -845,32 +756,28 @@ var FixedDataTable = React.createClass({
 
     // The order of elements in this object metters and bringing bodyHeight,
     // height or useGroupHeader to the top can break various features
-    var newState = {
-      isColumnResizing: oldState && oldState.isColumnResizing,
-      // isColumnResizing should be overwritten by value from props if
-      // avaialble
+    var newState = _extends({
+      isColumnResizing: oldState && oldState.isColumnResizing
+    }, columnInfo, props, {
 
-      ...columnInfo,
-      ...props,
-
-      columnResizingData,
-      firstRowIndex,
-      firstRowOffset,
-      horizontalScrollbarVisible,
-      maxScrollX,
-      maxScrollY,
+      columnResizingData: columnResizingData,
+      firstRowIndex: firstRowIndex,
+      firstRowOffset: firstRowOffset,
+      horizontalScrollbarVisible: horizontalScrollbarVisible,
+      maxScrollX: maxScrollX,
+      maxScrollY: maxScrollY,
       reservedHeight: totalHeightReserved,
-      scrollContentHeight,
-      scrollX,
-      scrollY,
+      scrollContentHeight: scrollContentHeight,
+      scrollX: scrollX,
+      scrollY: scrollY,
 
       // These properties may overwrite properties defined in
       // columnInfo and props
-      bodyHeight,
-      height,
-      groupHeaderHeight,
-      useGroupHeader,
-    };
+      bodyHeight: bodyHeight,
+      height: height,
+      groupHeaderHeight: groupHeaderHeight,
+      useGroupHeader: useGroupHeader
+    });
 
     // Both `headData` and `groupHeaderData` are generated by
     // `FixedDataTable` will be passed to each header cell to render.
@@ -878,18 +785,10 @@ var FixedDataTable = React.createClass({
     // new `headData` or `groupHeaderData`
     // if they haven't changed.
     if (oldState) {
-      if (
-        oldState.headData &&
-        newState.headData &&
-        shallowEqual(oldState.headData, newState.headData)
-      ) {
+      if (oldState.headData && newState.headData && shallowEqual(oldState.headData, newState.headData)) {
         newState.headData = oldState.headData;
       }
-      if (
-        oldState.groupHeaderData &&
-        newState.groupHeaderData &&
-        shallowEqual(oldState.groupHeaderData, newState.groupHeaderData)
-      ) {
+      if (oldState.groupHeaderData && newState.groupHeaderData && shallowEqual(oldState.groupHeaderData, newState.groupHeaderData)) {
         newState.groupHeaderData = oldState.groupHeaderData;
       }
     }
@@ -897,21 +796,17 @@ var FixedDataTable = React.createClass({
     return newState;
   },
 
-  _tryReusingColumnSettings(
-    /*object*/ columnInfo,
-    /*object*/ oldState
-  ) /*object*/ {
-    COLUMN_SETTING_NAMES.forEach(settingName => {
+  _tryReusingColumnSettings: function _tryReusingColumnSettings(
+  /*object*/columnInfo,
+  /*object*/oldState) /*object*/{
+    COLUMN_SETTING_NAMES.forEach(function (settingName) {
       if (!columnInfo[settingName] || !oldState[settingName]) {
         return;
       }
       if (columnInfo[settingName].length === oldState[settingName].length) {
         var canReuse = true;
         for (var index = 0; index < columnInfo[settingName].length; ++index) {
-          if (!shallowEqual(
-              columnInfo[settingName][index].props,
-              oldState[settingName][index].props
-          )) {
+          if (!shallowEqual(columnInfo[settingName][index].props, oldState[settingName][index].props)) {
             canReuse = false;
             break;
           }
@@ -924,64 +819,54 @@ var FixedDataTable = React.createClass({
     return columnInfo;
   },
 
-  _createGroupHeaderColumns(/*array*/ columnGroups) /*array*/  {
+  _createGroupHeaderColumns: function _createGroupHeaderColumns( /*array*/columnGroups) /*array*/{
     var newColumnGroups = [];
     for (var i = 0; i < columnGroups.length; ++i) {
-      newColumnGroups[i] = cloneWithProps(
-        columnGroups[i],
-        {
-          dataKey: i,
-          children: undefined,
-          columnData: columnGroups[i].props.columnGroupData,
-          isHeaderCell: true,
-        }
-      );
+      newColumnGroups[i] = cloneWithProps(columnGroups[i], {
+        dataKey: i,
+        children: undefined,
+        columnData: columnGroups[i].props.columnGroupData,
+        isHeaderCell: true
+      });
     }
     return newColumnGroups;
   },
 
-  _createHeadColumns(/*array*/ columns) /*array*/ {
+  _createHeadColumns: function _createHeadColumns( /*array*/columns) /*array*/{
     var headColumns = [];
     for (var i = 0; i < columns.length; ++i) {
       var columnProps = columns[i].props;
-      headColumns.push(cloneWithProps(
-        columns[i],
-        {
-          cellRenderer: columnProps.headerRenderer || renderToString,
-          columnData: columnProps.columnData,
-          dataKey: columnProps.dataKey,
-          isHeaderCell: true,
-          label: columnProps.label,
-        }
-      ));
+      headColumns.push(cloneWithProps(columns[i], {
+        cellRenderer: columnProps.headerRenderer || renderToString,
+        columnData: columnProps.columnData,
+        dataKey: columnProps.dataKey,
+        isHeaderCell: true,
+        label: columnProps.label
+      }));
     }
     return headColumns;
   },
 
-  _createFootColumns(/*array*/ columns) /*array*/ {
+  _createFootColumns: function _createFootColumns( /*array*/columns) /*array*/{
     var footColumns = [];
     for (var i = 0; i < columns.length; ++i) {
       var columnProps = columns[i].props;
-      footColumns.push(cloneWithProps(
-        columns[i],
-        {
-          cellRenderer: columnProps.footerRenderer || renderToString,
-          columnData: columnProps.columnData,
-          dataKey: columnProps.dataKey,
-          isFooterCell: true,
-        }
-      ));
+      footColumns.push(cloneWithProps(columns[i], {
+        cellRenderer: columnProps.footerRenderer || renderToString,
+        columnData: columnProps.columnData,
+        dataKey: columnProps.dataKey,
+        isFooterCell: true
+      }));
     }
     return footColumns;
   },
 
-  _getHeadData(/*array*/ columns) /*object*/ {
+  _getHeadData: function _getHeadData( /*array*/columns) /*object*/{
     var headData = {};
     for (var i = 0; i < columns.length; ++i) {
       var columnProps = columns[i].props;
       if (this.props.headerDataGetter) {
-        headData[columnProps.dataKey] =
-          this.props.headerDataGetter(columnProps.dataKey);
+        headData[columnProps.dataKey] = this.props.headerDataGetter(columnProps.dataKey);
       } else {
         headData[columnProps.dataKey] = columnProps.label || '';
       }
@@ -989,7 +874,7 @@ var FixedDataTable = React.createClass({
     return headData;
   },
 
-  _getGroupHeaderData(/*array*/ columnGroups) /*array*/ {
+  _getGroupHeaderData: function _getGroupHeaderData( /*array*/columnGroups) /*array*/{
     var groupHeaderData = [];
     for (var i = 0; i < columnGroups.length; ++i) {
       groupHeaderData[i] = columnGroups[i].props.label || '';
@@ -997,7 +882,7 @@ var FixedDataTable = React.createClass({
     return groupHeaderData;
   },
 
-  _splitColumnTypes(/*array*/ columns) /*object*/ {
+  _splitColumnTypes: function _splitColumnTypes( /*array*/columns) /*object*/{
     var fixedColumns = [];
     var scrollableColumns = [];
     for (var i = 0; i < columns.length; ++i) {
@@ -1009,33 +894,29 @@ var FixedDataTable = React.createClass({
     }
     return {
       fixed: fixedColumns,
-      scrollable: scrollableColumns,
+      scrollable: scrollableColumns
     };
   },
 
-  _onWheel(/*number*/ deltaX, /*number*/ deltaY) {
+  _onWheel: function _onWheel( /*number*/deltaX, /*number*/deltaY) {
     if (this.isMounted()) {
       var x = this.state.scrollX;
-      if (Math.abs(deltaY) > Math.abs(deltaX) &&
-          this.props.overflowY !== 'hidden') {
+      if (Math.abs(deltaY) > Math.abs(deltaX) && this.props.overflowY !== 'hidden') {
         var scrollState = this._scrollHelper.scrollBy(Math.round(deltaY));
-        var maxScrollY = Math.max(
-          0,
-          scrollState.contentHeight - this.state.bodyHeight
-        );
+        var maxScrollY = Math.max(0, scrollState.contentHeight - this.state.bodyHeight);
         this.setState({
           firstRowIndex: scrollState.index,
           firstRowOffset: scrollState.offset,
           scrollY: scrollState.position,
           scrollContentHeight: scrollState.contentHeight,
-          maxScrollY: maxScrollY,
+          maxScrollY: maxScrollY
         });
       } else if (deltaX && this.props.overflowX !== 'hidden') {
         x += deltaX;
         x = x < 0 ? 0 : x;
         x = x > this.state.maxScrollX ? this.state.maxScrollX : x;
         this.setState({
-          scrollX: x,
+          scrollX: x
         });
       }
 
@@ -1043,30 +924,29 @@ var FixedDataTable = React.createClass({
     }
   },
 
-
-  _onHorizontalScroll(/*number*/ scrollPos) {
+  _onHorizontalScroll: function _onHorizontalScroll( /*number*/scrollPos) {
     if (this.isMounted() && scrollPos !== this.state.scrollX) {
       this.setState({
-        scrollX: scrollPos,
+        scrollX: scrollPos
       });
       this._didScrollStop();
     }
   },
 
-  _onVerticalScroll(/*number*/ scrollPos) {
+  _onVerticalScroll: function _onVerticalScroll( /*number*/scrollPos) {
     if (this.isMounted() && scrollPos !== this.state.scrollY) {
       var scrollState = this._scrollHelper.scrollTo(Math.round(scrollPos));
       this.setState({
         firstRowIndex: scrollState.index,
         firstRowOffset: scrollState.offset,
         scrollY: scrollState.position,
-        scrollContentHeight: scrollState.contentHeight,
+        scrollContentHeight: scrollState.contentHeight
       });
       this._didScrollStop();
     }
   },
 
-  _didScrollStop() {
+  _didScrollStop: function _didScrollStop() {
     if (this.isMounted()) {
       if (this.props.onScrollEnd) {
         this.props.onScrollEnd(this.state.scrollX, this.state.scrollY);
@@ -1076,47 +956,48 @@ var FixedDataTable = React.createClass({
 });
 
 var HorizontalScrollbar = React.createClass({
+  displayName: 'HorizontalScrollbar',
+
   mixins: [ReactComponentWithPureRenderMixin],
   propTypes: {
     contentSize: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
     onScroll: PropTypes.func.isRequired,
     position: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
+    size: PropTypes.number.isRequired
   },
 
-  render() /*object*/ {
+  render: function render() /*object*/{
     var outerContainerStyle = {
       height: Scrollbar.SIZE,
-      width: this.props.size,
+      width: this.props.size
     };
     var innerContainerStyle = {
       height: Scrollbar.SIZE,
       position: 'absolute',
       overflow: 'hidden',
-      width: this.props.size,
+      width: this.props.size
     };
-    translateDOMPositionXY(
-      innerContainerStyle,
-      0,
-      this.props.offset
-    );
+    translateDOMPositionXY(innerContainerStyle, 0, this.props.offset);
 
-    return (
-      <div
-        className={cx('fixedDataTable/horizontalScrollbar')}
-        style={outerContainerStyle}>
-        <div style={innerContainerStyle}>
-          <Scrollbar
-            {...this.props}
-            isOpaque={true}
-            orientation="horizontal"
-            offset={undefined}
-          />
-        </div>
-      </div>
+    return React.createElement(
+      'div',
+      {
+        className: cx('fixedDataTable/horizontalScrollbar'),
+        style: outerContainerStyle },
+      React.createElement(
+        'div',
+        { style: innerContainerStyle },
+        React.createElement(Scrollbar, _extends({}, this.props, {
+          isOpaque: true,
+          orientation: 'horizontal',
+          offset: undefined
+        }))
+      )
     );
-  },
+  }
 });
 
 module.exports = FixedDataTable;
+// isColumnResizing should be overwritten by value from props if
+// avaialble

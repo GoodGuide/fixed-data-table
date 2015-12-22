@@ -10,14 +10,18 @@
  * @typechecks
  */
 
-var React = require('WrappedReact');
+'use strict';
 
-var {PropTypes} = React;
+var React = require('./WrappedReact');
+
+var PropTypes = React.PropTypes;
 
 /**
  * Component that defines the attributes of a table column group.
  */
 var FixedDataTableColumnGroup = React.createClass({
+  displayName: 'FixedDataTableColumnGroup',
+
   statics: {
     __TableColumnGroup__: true
   },
@@ -57,23 +61,21 @@ var FixedDataTableColumnGroup = React.createClass({
      * ): ?$jsx
      * ```
      */
-    groupHeaderRenderer: PropTypes.func,
+    groupHeaderRenderer: PropTypes.func
   },
 
-  getDefaultProps() /*object*/ {
+  getDefaultProps: function getDefaultProps() /*object*/{
     return {
-      fixed: false,
+      fixed: false
     };
   },
 
-  render() {
-    if (__DEV__) {
-      throw new Error(
-        'Component <FixedDataTableColumnGroup /> should never render'
-      );
+  render: function render() {
+    if (process.env.NODE_ENV !== 'production') {
+      throw new Error('Component <FixedDataTableColumnGroup /> should never render');
     }
     return null;
-  },
+  }
 });
 
 module.exports = FixedDataTableColumnGroup;

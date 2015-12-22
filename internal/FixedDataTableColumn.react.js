@@ -10,14 +10,18 @@
  * @typechecks
  */
 
-var React = require('WrappedReact');
+'use strict';
 
-var {PropTypes} = React;
+var React = require('./WrappedReact');
+
+var PropTypes = React.PropTypes;
 
 /**
  * Component that defines the attributes of table column.
  */
 var FixedDataTableColumn = React.createClass({
+  displayName: 'FixedDataTableColumn',
+
   statics: {
     __TableColumn__: true
   },
@@ -62,10 +66,7 @@ var FixedDataTableColumn = React.createClass({
      * must be either `string` or `number`. Since we use this
      * for keys, it must be specified for each column.
      */
-    dataKey: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
+    dataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 
     /**
      * Controls if the column is fixed when scrolling in the X axis.
@@ -140,23 +141,21 @@ var FixedDataTableColumn = React.createClass({
      * FixedDataTableColumnResizeHandle. Please note that if a column
      * has a flex grow, once you resize the column this will be set to 0.
      */
-    isResizable: PropTypes.bool,
+    isResizable: PropTypes.bool
   },
 
-  getDefaultProps() /*object*/ {
+  getDefaultProps: function getDefaultProps() /*object*/{
     return {
-      fixed: false,
+      fixed: false
     };
   },
 
-  render() {
-    if (__DEV__) {
-      throw new Error(
-        'Component <FixedDataTableColumn /> should never render'
-      );
+  render: function render() {
+    if (process.env.NODE_ENV !== 'production') {
+      throw new Error('Component <FixedDataTableColumn /> should never render');
     }
     return null;
-  },
+  }
 });
 
 module.exports = FixedDataTableColumn;

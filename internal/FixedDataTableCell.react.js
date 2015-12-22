@@ -10,23 +10,26 @@
  * @typechecks
  */
 
-var ImmutableObject = require('ImmutableObject');
-var React = require('WrappedReact');
+'use strict';
 
-var cloneWithProps = require('cloneWithProps');
-var cx = require('cx');
-var joinClasses = require('joinClasses');
+var ImmutableObject = require('./ImmutableObject');
+var React = require('./WrappedReact');
 
-var {PropTypes} = React;
+var cloneWithProps = require('./cloneWithProps');
+var cx = require('./cx');
+var joinClasses = require('./joinClasses');
+
+var PropTypes = React.PropTypes;
 
 var DEFAULT_PROPS = new ImmutableObject({
   align: 'left',
   highlighted: false,
   isFooterCell: false,
-  isHeaderCell: false,
+  isHeaderCell: false
 });
 
 var FixedDataTableCell = React.createClass({
+  displayName: 'FixedDataTableCell',
 
   propTypes: {
     align: PropTypes.oneOf(['left', 'center', 'right']),
@@ -47,10 +50,7 @@ var FixedDataTableCell = React.createClass({
     /**
      * The key to retrieve the cell data from the `rowData`.
      */
-    cellDataKey: PropTypes.oneOfType([
-      PropTypes.string.isRequired,
-      PropTypes.number.isRequired,
-    ]),
+    cellDataKey: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),
 
     /**
      * The function to render the `cellData`.
@@ -65,10 +65,7 @@ var FixedDataTableCell = React.createClass({
     /**
      * The row data that will be passed to `cellRenderer` to render.
      */
-    rowData: PropTypes.oneOfType([
-      PropTypes.object.isRequired,
-      PropTypes.array.isRequired,
-    ]),
+    rowData: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.array.isRequired]),
 
     /**
      * The row index that will be passed to `cellRenderer` to render.
@@ -98,21 +95,19 @@ var FixedDataTableCell = React.createClass({
     /**
      * The left offset in pixels of the cell.
      */
-    left: PropTypes.number,
+    left: PropTypes.number
   },
 
-  shouldComponentUpdate(/*object*/ nextProps) /*boolean*/ {
+  shouldComponentUpdate: function shouldComponentUpdate( /*object*/nextProps) /*boolean*/{
     var props = this.props;
     var key;
     for (key in props) {
-      if (props[key] !== nextProps[key] &&
-          key !== 'left') {
+      if (props[key] !== nextProps[key] && key !== 'left') {
         return true;
       }
     }
     for (key in nextProps) {
-      if (props[key] !== nextProps[key] &&
-          key !== 'left') {
+      if (props[key] !== nextProps[key] && key !== 'left') {
         return true;
       }
     }
@@ -120,11 +115,11 @@ var FixedDataTableCell = React.createClass({
     return false;
   },
 
-  getDefaultProps() /*object*/ {
+  getDefaultProps: function getDefaultProps() /*object*/{
     return DEFAULT_PROPS;
   },
 
-  render() /*object*/ {
+  render: function render() /*object*/{
     var props = this.props;
 
     var style = {
@@ -132,45 +127,33 @@ var FixedDataTableCell = React.createClass({
       height: props.height
     };
 
-    var className = joinClasses(
-      cx({
-        'public/fixedDataTableCell/main': true,
-        'public/fixedDataTableCell/highlighted': props.highlighted,
-        'public/fixedDataTableCell/lastChild': props.lastChild,
-        'public/fixedDataTableCell/alignRight': props.align === 'right',
-        'public/fixedDataTableCell/alignCenter': props.align === 'center'
-      }),
-      props.className
-    );
+    var className = joinClasses(cx({
+      'public/fixedDataTableCell/main': true,
+      'public/fixedDataTableCell/highlighted': props.highlighted,
+      'public/fixedDataTableCell/lastChild': props.lastChild,
+      'public/fixedDataTableCell/alignRight': props.align === 'right',
+      'public/fixedDataTableCell/alignCenter': props.align === 'center'
+    }), props.className);
 
     var content;
     if (props.isHeaderCell || props.isFooterCell) {
-      content = props.cellRenderer(
-        props.cellData,
-        props.cellDataKey,
-        props.columnData,
-        props.rowData,
-        props.width
-      );
+      content = props.cellRenderer(props.cellData, props.cellDataKey, props.columnData, props.rowData, props.width);
     } else {
-      content = props.cellRenderer(
-        props.cellData,
-        props.cellDataKey,
-        props.rowData,
-        props.rowIndex,
-        props.columnData,
-        props.width
-      );
+      content = props.cellRenderer(props.cellData, props.cellDataKey, props.rowData, props.rowIndex, props.columnData, props.width);
     }
 
     var contentClass = cx('public/fixedDataTableCell/cellContent');
     if (React.isValidElement(content)) {
       content = cloneWithProps(content, {
         key: content.key,
-        className: contentClass,
+        className: contentClass
       });
     } else {
-      content = <div className={contentClass}>{content}</div>;
+      content = React.createElement(
+        'div',
+        { className: contentClass },
+        content
+      );
     }
 
     var columnResizerComponent;
@@ -178,42 +161,41 @@ var FixedDataTableCell = React.createClass({
       var columnResizerStyle = {
         height: props.height
       };
-      columnResizerComponent = (
-        <div
-          className={cx('fixedDataTableCell/columnResizerContainer')}
-          style={columnResizerStyle}
-          onMouseDown={this._onColumnResizerMouseDown}>
-          <div
-            className={cx('fixedDataTableCell/columnResizerKnob')}
-            style={columnResizerStyle}
-          />
-        </div>
+      columnResizerComponent = React.createElement(
+        'div',
+        {
+          className: cx('fixedDataTableCell/columnResizerContainer'),
+          style: columnResizerStyle,
+          onMouseDown: this._onColumnResizerMouseDown },
+        React.createElement('div', {
+          className: cx('fixedDataTableCell/columnResizerKnob'),
+          style: columnResizerStyle
+        })
       );
     }
-    return (
-      <div className={className} style={style}>
-        {columnResizerComponent}
-        <div className={cx('public/fixedDataTableCell/wrap1')} style={style}>
-          <div className={cx('public/fixedDataTableCell/wrap2')}>
-            <div className={cx('public/fixedDataTableCell/wrap3')}>
-              {content}
-            </div>
-          </div>
-        </div>
-      </div>
+    return React.createElement(
+      'div',
+      { className: className, style: style },
+      columnResizerComponent,
+      React.createElement(
+        'div',
+        { className: cx('public/fixedDataTableCell/wrap1'), style: style },
+        React.createElement(
+          'div',
+          { className: cx('public/fixedDataTableCell/wrap2') },
+          React.createElement(
+            'div',
+            { className: cx('public/fixedDataTableCell/wrap3') },
+            content
+          )
+        )
+      )
     );
   },
 
-  _onColumnResizerMouseDown(/*object*/ event) {
-    this.props.onColumnResize(
-      this.props.widthOffset,
-      this.props.width,
-      this.props.minWidth,
-      this.props.maxWidth,
-      this.props.cellDataKey,
-      event
-    );
-  },
+  _onColumnResizerMouseDown: function _onColumnResizerMouseDown( /*object*/event) {
+    this.props.onColumnResize(this.props.widthOffset, this.props.width, this.props.minWidth, this.props.maxWidth, this.props.cellDataKey, event);
+  }
 });
 
 module.exports = FixedDataTableCell;

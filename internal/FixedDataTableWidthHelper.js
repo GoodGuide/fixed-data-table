@@ -12,11 +12,11 @@
 
 'use strict';
 
-var React = require('WrappedReact');
+var React = require('./WrappedReact');
 
-var cloneWithProps = require('cloneWithProps');
+var cloneWithProps = require('./cloneWithProps');
 
-function getTotalWidth(/*array*/ columns) /*number*/ {
+function getTotalWidth( /*array*/columns) /*number*/{
   var totalWidth = 0;
   for (var i = 0; i < columns.length; ++i) {
     totalWidth += columns[i].props.width;
@@ -24,7 +24,7 @@ function getTotalWidth(/*array*/ columns) /*number*/ {
   return totalWidth;
 }
 
-function getTotalFlexGrow(/*array*/ columns) /*number*/ {
+function getTotalFlexGrow( /*array*/columns) /*number*/{
   var totalFlexGrow = 0;
   for (var i = 0; i < columns.length; ++i) {
     totalFlexGrow += columns[i].props.flexGrow || 0;
@@ -33,13 +33,12 @@ function getTotalFlexGrow(/*array*/ columns) /*number*/ {
 }
 
 function distributeFlexWidth(
-  /*array*/ columns,
-  /*number*/ flexWidth
-) /*object*/ {
+/*array*/columns,
+/*number*/flexWidth) /*object*/{
   if (flexWidth <= 0) {
     return {
       columns: columns,
-      width: getTotalWidth(columns),
+      width: getTotalWidth(columns)
     };
   }
   var remainingFlexGrow = getTotalFlexGrow(columns);
@@ -53,38 +52,31 @@ function distributeFlexWidth(
       newColumns.push(column);
       continue;
     }
-    var columnFlexWidth = Math.floor(
-      column.props.flexGrow / remainingFlexGrow * remainingFlexWidth
-    );
+    var columnFlexWidth = Math.floor(column.props.flexGrow / remainingFlexGrow * remainingFlexWidth);
     var newColumnWidth = Math.floor(column.props.width + columnFlexWidth);
     totalWidth += newColumnWidth;
 
     remainingFlexGrow -= column.props.flexGrow;
     remainingFlexWidth -= columnFlexWidth;
 
-    newColumns.push(cloneWithProps(
-      column,
-      {width: newColumnWidth}
-    ));
+    newColumns.push(cloneWithProps(column, { width: newColumnWidth }));
   }
 
   return {
     columns: newColumns,
-    width: totalWidth,
+    width: totalWidth
   };
 }
 
 function adjustColumnGroupWidths(
-  /*array*/ columnGroups,
-  /*number*/ expectedWidth
-) /*object*/ {
+/*array*/columnGroups,
+/*number*/expectedWidth) /*object*/{
   var allColumns = [];
   var i;
   for (i = 0; i < columnGroups.length; ++i) {
-    React.Children.forEach(
-      columnGroups[i].props.children,
-      (column) => {allColumns.push(column);}
-    );
+    React.Children.forEach(columnGroups[i].props.children, function (column) {
+      allColumns.push(column);
+    });
   }
   var columnsWidth = getTotalWidth(allColumns);
   var remainingFlexGrow = getTotalFlexGrow(allColumns);
@@ -97,20 +89,14 @@ function adjustColumnGroupWidths(
     var columnGroup = columnGroups[i];
     var currentColumns = [];
 
-    React.Children.forEach(
-      columnGroup.props.children,
-      (column) => {currentColumns.push(column);}
-    );
+    React.Children.forEach(columnGroup.props.children, function (column) {
+      currentColumns.push(column);
+    });
 
     var columnGroupFlexGrow = getTotalFlexGrow(currentColumns);
-    var columnGroupFlexWidth = Math.floor(
-      columnGroupFlexGrow / remainingFlexGrow * remainingFlexWidth
-    );
+    var columnGroupFlexWidth = Math.floor(columnGroupFlexGrow / remainingFlexGrow * remainingFlexWidth);
 
-    var newColumnSettings = distributeFlexWidth(
-      currentColumns,
-      columnGroupFlexWidth
-    );
+    var newColumnSettings = distributeFlexWidth(currentColumns, columnGroupFlexWidth);
 
     remainingFlexGrow -= columnGroupFlexGrow;
     remainingFlexWidth -= columnGroupFlexWidth;
@@ -119,22 +105,18 @@ function adjustColumnGroupWidths(
       newAllColumns.push(newColumnSettings.columns[j]);
     }
 
-    newColumnGroups.push(cloneWithProps(
-      columnGroup,
-      {width: newColumnSettings.width}
-    ));
+    newColumnGroups.push(cloneWithProps(columnGroup, { width: newColumnSettings.width }));
   }
 
   return {
     columns: newAllColumns,
-    columnGroups: newColumnGroups,
+    columnGroups: newColumnGroups
   };
 }
 
 function adjustColumnWidths(
-  /*array*/ columns,
-  /*number*/ expectedWidth
-) /*array*/ {
+/*array*/columns,
+/*number*/expectedWidth) /*array*/{
   var columnsWidth = getTotalWidth(columns);
   if (columnsWidth < expectedWidth) {
     return distributeFlexWidth(columns, expectedWidth - columnsWidth).columns;
@@ -143,11 +125,11 @@ function adjustColumnWidths(
 }
 
 var FixedDataTableWidthHelper = {
-  getTotalWidth,
-  getTotalFlexGrow,
-  distributeFlexWidth,
-  adjustColumnWidths,
-  adjustColumnGroupWidths,
+  getTotalWidth: getTotalWidth,
+  getTotalFlexGrow: getTotalFlexGrow,
+  distributeFlexWidth: distributeFlexWidth,
+  adjustColumnWidths: adjustColumnWidths,
+  adjustColumnGroupWidths: adjustColumnGroupWidths
 };
 
 module.exports = FixedDataTableWidthHelper;

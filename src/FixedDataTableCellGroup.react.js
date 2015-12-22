@@ -14,7 +14,7 @@
 
 var FixedDataTableHelper = require('FixedDataTableHelper');
 var ImmutableObject = require('ImmutableObject');
-var React = require('React');
+var React = require('WrappedReact');
 var ReactComponentWithPureRenderMixin = require('ReactComponentWithPureRenderMixin');
 var FixedDataTableCell = require('FixedDataTableCell.react');
 
